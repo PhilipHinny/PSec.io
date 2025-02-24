@@ -1,0 +1,53 @@
+.hero-section{
+    margin-top: 50px;
+}
+
+.hero-heading{
+    font-family: "Poppins", "Montserrat", "Avenir", "Nunito", "Satoshi", sans-serif;
+    font-size: 48px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.hero-subtext{
+    font-family: "Poppins", "Montserrat", "Avenir", "Nunito", "Satoshi", sans-serif;
+    font-size: 42px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+    .hero-heading {
+        font-size: 32px;
+    }
+    .hero-subtext {
+        font-size: 24px;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-heading {
+        font-size: 24px;
+    }
+    .hero-subtext {
+        font-size: 20px;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}

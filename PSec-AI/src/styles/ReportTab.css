@@ -1,0 +1,57 @@
+.Report-container{
+    background: rgba(255, 255, 255, 1);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease;
+}
+
+.Report-container:hover {
+    transform: scale(1.1);
+}
+
+.container-heading{
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.container-separater{
+    width: 100%;
+    height: 1%;
+    background-color: #666666;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+    .Report-container {
+        padding: 5px;
+        border-radius: 8px;
+    }
+
+    .container-heading {
+        font-size: 14px;
+    }
+
+    .container-separater {
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .Report-container {
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .container-heading {
+        font-size: 14px;
+    }
+
+    .container-separater {
+        margin-bottom: 5px;
+    }
+}

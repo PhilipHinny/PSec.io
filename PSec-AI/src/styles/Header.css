@@ -1,0 +1,148 @@
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin: 0;
+}
+
+ul li {
+    margin: 5px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Poppins", "Montserrat", "Avenir", "Nunito", "Satoshi", sans-serif;
+    color: #333;
+    margin-right: auto; 
+}
+
+.Date-time-container {
+    background: rgba(255, 255, 255, 1);
+    color: #666666;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    flex-grow: 0;
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.Date-time-container:hover {
+    transform: scale(1.05);
+}
+
+.Date-time-container:active {
+    transform: scale(1.05);
+}
+
+.separater {
+    margin: 5px;
+    padding: 2px;
+    width: 1px;
+    height: 1px;
+    background: #000000;
+    border-radius: 50%;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; 
+}
+
+.settings-option, .profile-option {
+    background: rgba(255, 255, 255, 1);
+    color: #666666; 
+    padding: 10px;
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2); 
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.settings-option:hover, .profile-option:hover {
+    transform: scale(1.1);
+}
+
+.settings-option:active, .profile-option:active {
+    transform: scale(1.1);
+}
+
+.option-icon {
+    font-size: 20px;
+    color: #666666;
+}
+
+.option-icon:hover {
+   font-size: 18px;
+}
+
+/* Media Queries */
+@media (max-width: 800px) {
+    .logo {
+        font-size: 24px;
+    }
+
+    .Date-time-container {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .settings-option, .profile-option {
+        padding: 8px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .option-icon {
+        font-size: 18px;
+    }
+
+    .option-icon:hover {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .Date-time-container {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .settings-option, .profile-option {
+        padding: 6px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .option-icon {
+        font-size: 16px;
+    }
+}
