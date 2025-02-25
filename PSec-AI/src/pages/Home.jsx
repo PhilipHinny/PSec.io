@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
 import ReportTab from '../components/ReportTab';
@@ -28,9 +29,11 @@ const Home = () => {
             </div>
 
             <div className="card-container">
-               <MinuteTab />
-               <ReportTab />
-               <InsightTab />
+                <MinuteTab />
+                <Link to="/chat" style={{ textDecoration: 'none' }}>
+                    <ReportTab />
+                </Link>
+                <InsightTab />
             </div>
 
             <div className="button-section">
