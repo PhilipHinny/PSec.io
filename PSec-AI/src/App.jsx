@@ -1,12 +1,16 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import './styles/App.css';
+import ChatInterface from './components/ChatInterface';
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<ChatInterface />} />
+      </Routes>
+    </Router>
   );
 }
 
