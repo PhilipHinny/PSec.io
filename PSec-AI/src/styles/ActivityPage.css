@@ -1,0 +1,65 @@
+.Activity-container {
+    background-color: #FFFFFF;
+    position: relative;
+    height: 100vh; 
+}
+
+.chat-body {
+    position: absolute;
+    bottom: 40%; 
+    left: 60%;
+    transform: translateX(-60%);
+    transition: all 0.3s ease; 
+    z-index: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-heading {
+    font-family: 'calibri';
+    font-size: 32px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    resize: none; 
+    overflow: visible; 
+    height: auto; 
+    min-height: 50px; 
+    max-height: 200px; 
+}
+
+.AiGenerate-button {
+    background-color: #333;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-family: 'calibri', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    height: 50px;
+    margin: 10px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.AiGenerate-button:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+

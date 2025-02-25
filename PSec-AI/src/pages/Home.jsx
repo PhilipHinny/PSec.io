@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
 import ReportTab from '../components/ReportTab';
@@ -30,9 +29,7 @@ const Home = () => {
 
             <div className="card-container">
                 <MinuteTab />
-                <Link to="/chat" style={{ textDecoration: 'none' }}>
-                    <ReportTab />
-                </Link>
+                <ReportTab />
                 <InsightTab />
             </div>
 

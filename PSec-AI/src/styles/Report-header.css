@@ -1,17 +1,15 @@
-ul {
-    list-style-type: none;
+.Reportheader-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    margin: 0;
+    margin-left: 22%; 
+    width: 77%; 
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
-ul li {
-    margin: 5px;
-}
-
-.logo {
+.Report-logo {
     font-size: 32px;
     font-weight: bold;
     font-family: "Poppins", "Montserrat", "Avenir", "Nunito", "Satoshi", sans-serif;
@@ -19,42 +17,8 @@ ul li {
     margin-right: auto; 
 }
 
-.logo:hover{
+.Report-logo:hover{
     cursor: pointer;
-}
-
-.Date-time-container {
-    background: rgba(255, 255, 255, 1);
-    color: #666666;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    flex-grow: 0;
-    transition: box-shadow 0.3s ease, transform 0.3s ease; 
-}
-
-.Date-time-container:hover {
-    transform: scale(1.05);
-}
-
-.Date-time-container:active {
-    transform: scale(1.05);
-}
-
-.separater {
-    margin: 5px;
-    padding: 2px;
-    width: 1px;
-    height: 1px;
-    background: #000000;
-    border-radius: 50%;
 }
 
 .options {

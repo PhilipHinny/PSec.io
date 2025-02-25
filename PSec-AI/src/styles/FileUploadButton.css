@@ -1,64 +1,61 @@
-.generate-button{
+.upload-button{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    gap: 10px;
+    gap: 5px;
     background-color: #333;
     border: none;
     padding: 10px;
     border-radius: 50px;
-    margin: 50px auto; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2); 
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.generate-button:hover{
+.upload-button:hover{
     transform: scale(1.05);
-    cursor: pointer;
 }
 
-.generate-button p{
+.upload-button p{
     color: white;
     font-family: 'Calibri', sans-serif;
-    font-size: 32px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     margin: 0px;
 }   
 
-.starsIcon{
-    width: 40px;
-    height: 40px;
+.upload-icon{
+    font-size: 14px;
+    color: white;
 }
 
 @media (max-width: 800px) {
-    .generate-button {
+    .upload-button {
         width: 60%;
         padding: 8px;
     }
 
-    .generate-button p {
+    .upload-button p {
         font-size: 24px;
     }
 
-    .starsIcon {
+    .upload-icon {
         width: 30px;
         height: 30px;
     }
 }
 
 @media (max-width: 400px) {
-    .generate-button {
+    .upload-button {
         width: 70%;
         padding: 6px;
     }
 
-    .generate-button p {
+    .upload-button p {
         font-size: 24px;
     }
 
-    .starsIcon {
+    .upload-icon {
         width: 30px;
         height: 30px;
     }
