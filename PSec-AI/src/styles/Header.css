@@ -69,7 +69,7 @@ ul li {
     color: #666666; 
     padding: 10px;
     border-radius: 10px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(0, 0, 0, 0.1); 
     backdrop-filter: blur(10px);
     font-weight: bold;
     text-align: center;
