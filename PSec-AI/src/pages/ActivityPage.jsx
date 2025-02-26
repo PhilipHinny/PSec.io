@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from '../components/Sidebar';
-import { FaCog, FaUser } from 'react-icons/fa';
+import { FaCog, FaUser, FaDownload } from 'react-icons/fa';
 import '../styles/ActivityPage.css';
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import saveAs from "file-saver";
 import { useNavigate } from 'react-router-dom';
 
 const ActivityPage = () => {
@@ -17,7 +19,7 @@ const ActivityPage = () => {
     }
 
     const handleGenerateClick = () => {
-        if (!query.trim()) return; // Ignore empty input
+        if (!query.trim()) return;
 
         setLoading(true);
         const userMessage = { text: query, sender: 'user' };
@@ -45,6 +47,33 @@ const ActivityPage = () => {
             handleGenerateClick();
         } else if (event.key === 'Enter' && event.shiftKey) {
         }
+    };
+
+    const handleDownloadClick = () => {
+        if (messages.length === 0) return;
+        const recentMessage = messages[messages.length - 1];
+        const doc = new Document({
+            sections: [
+            {
+                properties: {},
+                children: [
+                new Paragraph({
+                    children: [
+                    new TextRun({
+                        text: recentMessage.text,
+                        font: 'Times New Roman',
+                        size: 14 * 2,
+                    }),
+                    ],
+                }),
+                ],
+            },
+            ],
+        });
+    
+        Packer.toBlob(doc).then((blob) => {
+            saveAs(blob, "Report.docx");
+        });
     };
 
     return (
@@ -87,6 +116,11 @@ const ActivityPage = () => {
                     <button className="AiGenerate-button" onClick={handleGenerateClick}>
                         Generate
                     </button>
+                {messages.length > 0 && !loading && (
+                    <button className="download-button" onClick={handleDownloadClick}>
+                        <FaDownload />
+                    </button>
+                )}
                 </div>
             </div>
         </div>
