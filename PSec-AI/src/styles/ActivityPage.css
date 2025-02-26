@@ -56,13 +56,13 @@
 }
 
 .chat-message.user {
-    background-color: #DCF8C6;
+    background-color: #E8E8E8;
     align-self: flex-end; 
     width: 60%;
 }
 
 .chat-message.ai {
-    background-color: #E8E8E8;
+    background-color: transparent;
     align-self: flex-start; 
 }
 
@@ -109,7 +109,7 @@
 }
 
 .AiGenerate-button:hover {
-    background-color: #555;
+    background-color: #444;
     transform: scale(1.05);
 }
 
@@ -140,6 +140,23 @@
     margin-left: auto; 
 }
 
+.download-button{
+    background-color: #333;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 9px 15px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.download-button:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
 
 
 @media (max-width: 800px) {
