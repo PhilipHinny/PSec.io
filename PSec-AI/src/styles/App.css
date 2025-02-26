@@ -13,7 +13,7 @@
     }
   }
   
-.App-container {
+body {
     height: auto;
     background-size: 100% 100%;
     background-repeat: no-repeat;
