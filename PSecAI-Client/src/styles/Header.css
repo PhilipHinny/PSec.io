@@ -58,6 +58,7 @@ ul li {
 }
 
 .options {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -97,6 +98,35 @@ ul li {
 
 .option-icon:hover {
    font-size: 18px;
+}
+
+.profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 40px; /* Adjust the dropdown position as per your layout */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-menu button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f0f0f0;
 }
 
 /* Media Queries */

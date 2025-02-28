@@ -1,0 +1,125 @@
+/* Login Popup Styling */
+.login-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+  }
+  
+  .login-container {
+    font-family: 'Poppins';
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .login-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-input {
+    width: 90%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    font-size: 14px;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    background: #ffd700;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .loginIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    color: #333;
+    font-weight: 600;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .loginIcon img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .loginIcon:hover{
+    background: #666;
+    color: #fff;
+  }
+  
+  .error-message {
+    color: #d9534f;
+    background: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  
+  .success-message {
+    color: #28a745;
+    background: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    background-color: transparent; /* Ensure it's not blocking other UI */
+    border: none;
+  }
+  
+  .close-button:hover {
+    color: red;
+  }

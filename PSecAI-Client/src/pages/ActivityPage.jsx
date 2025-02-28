@@ -5,18 +5,33 @@ import '../styles/ActivityPage.css';
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import saveAs from "file-saver";
 import { useNavigate } from 'react-router-dom';
+import Login from '../components/Login';
 
-const ActivityPage = () => {
+const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
     const [query, setQuery] = useState('');
     const [messages, setMessages] = useState([]); 
     const [loading, setLoading] = useState(false);
     const [showHeading, setShowHeading] = useState(true); 
+    const [showLoginPopup, setShowLoginPopup] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
     const chatEndRef = useRef(null);
     const navigate = useNavigate();
 
-    const handleLogoClick = () =>{
+    const handleLogoClick = () => {
         navigate('/');
-    }
+    };
+
+    const handleLoginClick = () => {
+        setShowLoginPopup(true);  // Show login popup
+    };
+
+    const handleClosePopup = () => {
+        setShowLoginPopup(false);  // Close login popup
+    };
+
+    const toggleDropdown = () => {
+        setShowDropdown(prevState => !prevState);  // Toggle the dropdown visibility
+    };
 
     const handleGenerateClick = () => {
         if (!query.trim()) return;
@@ -24,7 +39,7 @@ const ActivityPage = () => {
         setLoading(true);
         const userMessage = { text: query, sender: 'user' };
 
-        // Test Fake AI response with a delay
+        // Fake AI response with a delay
         setTimeout(() => {
             const aiMessage = { text: `Generated report for: "${query}"`, sender: 'ai' };
 
@@ -36,6 +51,33 @@ const ActivityPage = () => {
         setShowHeading(false); 
     };
 
+    const handleDownloadClick = () => {
+        if (messages.length === 0) return;
+        const recentMessage = messages[messages.length - 1];
+        const doc = new Document({
+            sections: [
+                {
+                    properties: {},
+                    children: [
+                        new Paragraph({
+                            children: [
+                                new TextRun({
+                                    text: recentMessage.text,
+                                    font: 'Times New Roman',
+                                    size: 14 * 2,
+                                }),
+                            ],
+                        }),
+                    ],
+                },
+            ],
+        });
+
+        Packer.toBlob(doc).then((blob) => {
+            saveAs(blob, "Report.docx");
+        });
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -45,35 +87,7 @@ const ActivityPage = () => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             handleGenerateClick();
-        } else if (event.key === 'Enter' && event.shiftKey) {
         }
-    };
-
-    const handleDownloadClick = () => {
-        if (messages.length === 0) return;
-        const recentMessage = messages[messages.length - 1];
-        const doc = new Document({
-            sections: [
-            {
-                properties: {},
-                children: [
-                new Paragraph({
-                    children: [
-                    new TextRun({
-                        text: recentMessage.text,
-                        font: 'Times New Roman',
-                        size: 14 * 2,
-                    }),
-                    ],
-                }),
-                ],
-            },
-            ],
-        });
-    
-        Packer.toBlob(doc).then((blob) => {
-            saveAs(blob, "Report.docx");
-        });
     };
 
     return (
@@ -82,16 +96,38 @@ const ActivityPage = () => {
 
             {/* Header with logo, title, and profile */}
             <header className="app-header">
-                <div className="logo" onClick={handleLogoClick}>PSec AI</div> 
+                <div className="logo" onClick={handleLogoClick}>PSec AI</div>
                 <div className="profile">
                     <div className="settings-option">
-                    <FaCog className='option-icon'/>
+                        <FaCog className='option-icon'/>
                     </div>
-                    <div className="profile-option">
-                    <FaUser className='option-icon'/>
+                    <div className="profile-option" onClick={user ? toggleDropdown : handleLoginClick}>
+                        {user ? (
+                            <img 
+                                src={user.photoURL || "https://www.example.com/default-profile-image.jpg"} 
+                                alt="Profile" 
+                                className="profile-img" 
+                            />
+                        ) : (
+                            <FaUser className='option-icon'/>
+                        )}
                     </div>
+                    {/* Dropdown Menu */}
+                    {showDropdown && user && (
+                        <div className="dropdown-menu">
+                            <button onClick={onLogout}>Logout</button>
+                        </div>
+                    )}
                 </div>
+                {showLoginPopup && (
+                    <div className="popup-overlay">
+                        <div className="popup-content">
+                            <Login handleClose={handleClosePopup} onLoginSuccess={onLoginSuccess} />
+                        </div>
+                    </div>
+                )}
             </header>
+
             <div className="chat-body">
                 <div className="chat-content">
                     {messages.map((msg, index) => (
@@ -113,14 +149,17 @@ const ActivityPage = () => {
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyPress={handleKeyPress}
                     />
-                    <button className="AiGenerate-button" onClick={handleGenerateClick}>
+                    <button 
+                        className="AiGenerate-button" 
+                        onClick={user ? handleGenerateClick : handleLoginClick}
+                    >
                         Generate
                     </button>
-                {messages.length > 0 && !loading && (
-                    <button className="download-button" onClick={handleDownloadClick}>
-                        <FaDownload />
-                    </button>
-                )}
+                    {messages.length > 0 && !loading && (
+                        <button className="download-button" onClick={handleDownloadClick}>
+                            <FaDownload />
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
