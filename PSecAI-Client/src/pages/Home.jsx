@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/Home.css';
-import Header from '../components/Header';
 import ReportTab from '../components/ReportTab';
 import MinuteTab from '../components/MinuteTab';
 import InsightTab from '../components/InsightTab';
 import GenerateButton from '../components/GenerateButton';
 
 const Home = () => {
+
+    // Function to display a greeting based on the time of day
     const getGreeting = () => {
         const currentHour = new Date().getHours();
         if (currentHour < 12) {
@@ -18,10 +19,12 @@ const Home = () => {
         }
     };
 
-    return (
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
+       return (
         <div>
-            <Header />
-
             <div className="hero-section">
                 <h1 className='hero-heading'>{getGreeting()}, Philip</h1>
                 <p className='hero-subtext'>How can I assist you today?</p>
