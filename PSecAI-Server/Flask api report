@@ -1,0 +1,111 @@
+# Flask AI Report Generation API Documentation
+
+## Overview
+This Flask API provides functionality for:
+- Uploading PDF and DOCX files
+- Extracting text from uploaded files
+- Generating AI-enhanced reports based on provided text
+- Fetching a list of pre-existing reports
+
+## Dependencies
+Ensure you have the required dependencies installed before running the API:
+
+```bash
+pip install Flask PyMuPDF python-docx openai
+```
+
+## API Endpoints
+
+### 1. Upload File
+**Endpoint:** `/upload`  
+**Method:** `POST`  
+**Description:** Allows users to upload a PDF or DOCX file to the server.
+
+**Request:**
+- `file`: The file to be uploaded (PDF or DOCX format).
+
+**Response:**
+```json
+{
+    "message": "File uploaded successfully",
+    "file_path": "uploads/filename.ext"
+}
+```
+
+**Error Response:**
+```json
+{
+    "error": "No file uploaded"
+}
+```
+
+---
+### 2. Generate AI Report
+**Endpoint:** `/generate_report`  
+**Method:** `POST`  
+**Description:** Uses OpenAI to generate an improved version of a past report.
+
+**Request Body:**
+```json
+{
+    "text": "Content of the past report"
+}
+```
+
+**Response:**
+```json
+{
+    "report": "Generated AI-enhanced report content"
+}
+```
+
+**Error Response:**
+```json
+{
+    "error": "No text provided"
+}
+```
+
+---
+### 3. Fetch List of Reports
+**Endpoint:** `/reports`  
+**Method:** `GET`  
+**Description:** Retrieves a list of pre-existing reports.
+
+**Response:**
+```json
+[
+    {
+        "title": "Q3 Activity Report",
+        "date": "Feb 24, 2025"
+    },
+    ...
+]
+```
+
+## File Processing
+### Extract Text Function
+This function reads the text from uploaded files:
+- **PDF files:** Extracts text from each page using PyMuPDF.
+- **DOCX files:** Extracts paragraph text using python-docx.
+- Returns an error message for unsupported formats.
+
+## Running the API
+To start the Flask application, run:
+```bash
+python app.py
+```
+
+Ensure that the OpenAI API key is correctly configured in the script before making requests.
+
+## Notes
+- The API currently supports only PDF and DOCX formats.
+- OpenAI API key must be set for report generation to function properly.
+- The `UPLOAD_FOLDER` directory is created automatically to store uploaded files.
+- Debug mode is enabled for development purposes; disable it in production.
+
+## Future Enhancements
+- Implement authentication and authorization.
+- Add support for additional file formats.
+- Enhance AI prompt customization for report generation.
+
