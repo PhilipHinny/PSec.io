@@ -22,15 +22,15 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
     };
 
     const handleLoginClick = () => {
-        setShowLoginPopup(true);  // Show login popup
+        setShowLoginPopup(true);
     };
 
     const handleClosePopup = () => {
-        setShowLoginPopup(false);  // Close login popup
+        setShowLoginPopup(false);
     };
 
     const toggleDropdown = () => {
-        setShowDropdown(prevState => !prevState);  // Toggle the dropdown visibility
+        setShowDropdown(prevState => !prevState);
     };
 
     const handleGenerateClick = () => {
@@ -39,7 +39,6 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
         setLoading(true);
         const userMessage = { text: query, sender: 'user' };
 
-        // Fake AI response with a delay
         setTimeout(() => {
             const aiMessage = { text: `Generated report for: "${query}"`, sender: 'ai' };
 
@@ -94,9 +93,15 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
         <div className="Activity-container">
             <Sidebar />
 
-            {/* Header with logo, title, and profile */}
             <header className="app-header">
                 <div className="logo" onClick={handleLogoClick}>PSec AI</div>
+                
+                <div>
+                    <button className='upload-button' onClick={user ? () => navigate('/UploadPage') : handleLoginClick}>
+                        Upload Files
+                    </button>
+                </div>
+
                 <div className="profile">
                     <div className="settings-option">
                         <FaCog className='option-icon'/>
@@ -112,7 +117,6 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
                             <FaUser className='option-icon'/>
                         )}
                     </div>
-                    {/* Dropdown Menu */}
                     {showDropdown && user && (
                         <div className="dropdown-menu">
                             <button onClick={onLogout}>Logout</button>
