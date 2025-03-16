@@ -32,6 +32,20 @@
     margin-bottom: 20px;
 }
 
+.upload-button{
+    background-color: #333;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 9px 15px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+}
+
 .chat-content {
     max-height: 70vh; 
     overflow-y: auto; 
@@ -123,8 +137,8 @@
     margin: 0;
     position: fixed;
     top: 0;
-    left: 310px; 
-    width: calc(97% - 300px);
+    left: 303px; 
+    width: calc(99% - 303px);
     z-index: 10;
 }
 

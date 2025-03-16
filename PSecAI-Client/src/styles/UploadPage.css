@@ -1,0 +1,109 @@
+.Upload-Page{
+    background-color: transparent;
+}
+
+.Upload-Wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+    width: 50%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: white; 
+}
+
+.upload-title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+}
+
+.upload-title p{
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.Upload-Container {
+    width: 600px;
+    height: 200px;
+    border: 2px dashed #999;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Upload-Container:hover {
+    border-color: #333;
+    background-color: #f8f8f8;
+}
+
+.Upload-Container p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #555;
+}
+
+.buttons-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.Upload-Buttons {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.Upload-Buttons:first-child {
+    background-color: #222;
+    color: #fff;
+}
+
+.Upload-Buttons:first-child:hover {
+    background-color: #444;
+}
+
+.Upload-Buttons:last-child {
+    background-color: #fff;
+    color: #222;
+    border: 2px solid #222;
+}
+
+.Upload-Buttons:last-child:hover {
+    background-color: #f0f0f0;
+}
+
+.file-info {
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+.file-name {
+    font-weight: bold;
+}
+
+.file-extension {
+    color: #777;
+}
