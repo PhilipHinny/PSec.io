@@ -1,7 +1,0 @@
-OPENAI_API_KEY= "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"
-PINECONE_API_KEY= "pcsk_2EcWqJ_UC24u6QGzgr5FAxzgKcVui8aD91HLp5a1G198ri8aSgdAvcuqQFtE26U29k34SP"
-PINECONE_INDEX_NAME=reports
-MONGO_URI="mongodb://localhost:27017/"
-DB_NAME= "PSECAI"
-DB_PASSWORD=your-database-password
-DB_HOST=your-database-host
