@@ -1,13 +1,26 @@
-from config import PINECONE_INDEX_NAME, PINECONE_API_KEY  # Import PINECONE_API_KEY from config.py
+import psycopg2
+from config import DB_CONFIG
 from langchain_community.embeddings import OpenAIEmbeddings
-import os
 from pinecone import Pinecone, ServerlessSpec
 
-# Use PINECONE_API_KEY from config.py instead of hardcoding
+# Database Connection
+def get_db_connection():
+    return psycopg2.connect(**DB_CONFIG)
+
+def save_report_metadata(user_id, filename):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO reports (user_id, filename) VALUES (%s, %s)", (user_id, filename))
+        conn.commit()
+
+# Pinecone Setup
+from config import PINECONE_INDEX_NAME, PINECONE_API_KEY
+
 pc = Pinecone(api_key=PINECONE_API_KEY)
 
-# Example: Create index if it doesn't exist
-if PINECONE_INDEX_NAME not in pc.list_indexes().names():
+# Create index if it doesn't exist
+existing_indexes = [index["name"] for index in pc.list_indexes()]
+if PINECONE_INDEX_NAME not in existing_indexes:
     pc.create_index(
         name=PINECONE_INDEX_NAME,
         dimension=1536,
@@ -28,8 +41,7 @@ def store_report(user_id, report_text):
     vector_db.upsert([(user_id, embedding, {"text": report_text})])
 
 def retrieve_reports(user_id, top_k=5):
-    # Retrieve the vector for the user (this is an example, modify as needed)
-    vector_to_query = get_vector_for_user(user_id)  # Implement this method to fetch the correct vector
+    vector_to_query = get_vector_for_user(user_id)
 
     # Query Pinecone with keyword arguments
     results = vector_db.query(
@@ -38,11 +50,11 @@ def retrieve_reports(user_id, top_k=5):
         include_metadata=True
     )
 
-    # Extract the report text from the query results
     return [res["metadata"]["text"] for res in results["matches"]]
 
 def get_vector_for_user(user_id):
-    # This function should return the vector for a given user_id
-    # For now, we're just returning a dummy vector. Replace with actual logic.
-    return [0.1, 0.2, 0.3]  # Replace with actual logic to retrieve the user's vector
-
+    # Fetch user vector from Pinecone if it exists
+    response = vector_db.query(vector=[0]*1536, top_k=1, filter={"user_id": user_id})
+    if response["matches"]:
+        return response["matches"][0]["vector"]
+    return [0] * 1536  # Default vector if no data exists

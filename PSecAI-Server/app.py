@@ -1,15 +1,18 @@
 from flask import Flask
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
 from routes.upload_routes import upload_bp
 from routes.generate_routes import generate_bp
+from routes.get_reports_routes import get_reports_bp
 
 app = Flask(__name__)
 
-# Enable CORS for all routes globally
-CORS(app, origins=["http://localhost:5173"])  
+# Enable CORS globally
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.register_blueprint(generate_bp)  
-app.register_blueprint(upload_bp)  
+# Register blueprints
+app.register_blueprint(generate_bp)
+app.register_blueprint(upload_bp)
+app.register_blueprint(get_reports_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
