@@ -2,7 +2,7 @@ from openai import OpenAI
 from config import OPENAI_API_KEY
 from db.vector_db import retrieve_reports
 
-client = OpenAI(api_key=OPENAI_API_KEY)  
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 def generate_report(user_id, prompt):
     past_reports = retrieve_reports(user_id)
@@ -17,7 +17,7 @@ def generate_report(user_id, prompt):
     """
 
     response = client.chat.completions.create(
-        model="gpt-4o",  
+        model="gpt-3.5-turbo",  # Correct model name
         messages=[{"role": "system", "content": gpt_prompt}],
         max_tokens=1500
     )
