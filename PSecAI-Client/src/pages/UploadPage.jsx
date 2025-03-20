@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import '../styles/UploadPage.css';
 
-const UploadPage = () => {
+const UploadPage = ({ user }) => {
     const [files, setFiles] = useState([]);
 
     const onDrop = (acceptedFiles) => {
@@ -16,12 +16,39 @@ const UploadPage = () => {
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-    const handleAnalyzeAndSave = () => {
-        console.log('Analyze & Save files:', files);
+    const handleAnalyzeAndSave = async () => {
+        if (files.length === 0) {
+            alert("Please upload a file first!");
+            return;
+        }
+    
+        const formData = new FormData();
+        // Append the file object directly, not the file details
+        formData.append("file", files[0]);  // Make sure 'files[0]' is the actual file object
+        formData.append("user_id", user?.uid); 
+    
+        try {
+            const response = await fetch("http://127.0.0.1:5000/upload_report", {
+                method: "POST",
+                body: formData
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+            } else {
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error("Upload failed:", error);
+            alert("Failed to upload the file.");
+        }
     };
+    
+    
 
     const handleClear = () => {
-        setFiles([]);
+        setFiles([]);  // Clear the selected files
     };
 
     return (
@@ -32,19 +59,19 @@ const UploadPage = () => {
             </div>
 
             <div className="Upload-Wrapper">
-                    <div className='Upload-Container' {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        {files.length > 0 ? (
-                            <div className="file-info">
-                                <span className="file-name">{files[0].name}</span>
-                                <span className="file-extension">.{files[0].extension}</span>
-                            </div>
-                        ) : (
-                            <div>
-                                <FaCloudUploadAlt size={32} />
-                                <p>Drag & drop some files here <br /> or click to select files</p>
-                            </div>
-                        )}
+                <div className='Upload-Container' {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {files.length > 0 ? (
+                        <div className="file-info">
+                            <span className="file-name">{files[0].name}</span>
+                            <span className="file-extension">.{files[0].extension}</span>
+                        </div>
+                    ) : (
+                        <div>
+                            <FaCloudUploadAlt size={32} />
+                            <p>Drag & drop some files here <br /> or click to select files</p>
+                        </div>
+                    )}
                 </div>
             </div>
 
