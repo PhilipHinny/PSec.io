@@ -33,21 +33,43 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
         setShowDropdown(prevState => !prevState);
     };
 
-    const handleGenerateClick = () => {
+    const handleGenerateClick = async () => {
         if (!query.trim()) return;
-
+    
         setLoading(true);
-        const userMessage = { text: query, sender: 'user' };
-
-        setTimeout(() => {
-            const aiMessage = { text: `Generated report for: "${query}"`, sender: 'ai' };
-
-            setMessages((prevMessages) => [...prevMessages, userMessage, aiMessage]);
+    
+        try {
+            // Send a POST request to the backend
+            const response = await fetch("http://127.0.0.1:5000/generate_report", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    user_id: user?.uid, 
+                    prompt: query
+                })
+            });
+    
+            const result = await response.json();
+    
+            // If the response is successful, add the generated report
+            if (response.ok) {
+                const aiMessage = { text: result.generated_report, sender: 'ai' };
+                setMessages(prevMessages => [
+                    ...prevMessages,
+                    { text: query, sender: 'user' },
+                    aiMessage
+                ]);
+            } else {
+                alert(result.error);  // Show any error message
+            }
+        } catch (error) {
+            console.error("Report generation failed:", error);
+            alert("Failed to generate the report.");
+        } finally {
             setLoading(false);
-        }, 2000);
-
-        setQuery('');
-        setShowHeading(false); 
+            setQuery('');
+            setShowHeading(false);
+        }
     };
 
     const handleDownloadClick = () => {
@@ -92,7 +114,6 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
     return (
         <div className="Activity-container">
             <Sidebar />
-
             <header className="app-header">
                 <div className="logo" onClick={handleLogoClick}>PSec AI</div>
                 

@@ -3,9 +3,9 @@ from services.ai_service import generate_report
 
 generate_bp = Blueprint("generate", __name__)
 
-@generate_bp.route("/generate_report", methods=["POST"])
+@generate_bp.route("/generate_report", methods=["POST"])  
 def generate():
-    print("Received a request for report generation!")  # Debug print
+    print("Received a request for report generation!")  
     data = request.json
     user_id = data.get("user_id")
     prompt = data.get("prompt")
@@ -16,4 +16,3 @@ def generate():
     generated_report = generate_report(user_id, prompt)
 
     return jsonify({"generated_report": generated_report})
-
