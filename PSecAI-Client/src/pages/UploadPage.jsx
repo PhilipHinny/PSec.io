@@ -39,6 +39,8 @@ const UploadPage = ({ user }) => {
       const result = await response.json();
       if (response.ok) {
         alert(result.message);
+        // Navigate to /ActivityPage after successful upload
+        window.location.href = "/ActivityPage";
       } else {
         alert(result.error);
       }
