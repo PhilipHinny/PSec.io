@@ -15,7 +15,7 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
     const [showHeading, setShowHeading] = useState(true); 
     const [showLoginPopup, setShowLoginPopup] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [downloadFormat, setDownloadFormat] = useState('pdf'); // Default format is PDF
+    const [downloadFormat, setDownloadFormat] = useState('pdf');
     const chatEndRef = useRef(null);
     const navigate = useNavigate();
 
@@ -37,12 +37,9 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
 
     const handleGenerateClick = async () => {
         if (!query.trim()) return;
-    
         setLoading(true);
-    
+
         try {
-            console.log("Sending request to backend...");
-    
             const response = await fetch("http://127.0.0.1:5000/generate_report", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -51,29 +48,22 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
                     prompt: query
                 })
             });
-    
-            console.log("Received response:", response);
-    
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Request failed: ${errorText}`);
-            }
-    
+
+            if (!response.ok) throw new Error(`Request failed: ${await response.text()}`);
+
             const result = await response.json();
-    
             if (result.generated_report) {
-                const aiMessage = { text: result.generated_report, sender: 'ai' };
                 setMessages(prevMessages => [
                     ...prevMessages,
                     { text: query, sender: 'user' },
-                    aiMessage
+                    { text: result.generated_report, sender: 'ai' }
                 ]);
             } else {
                 throw new Error("Empty response from AI");
             }
         } catch (error) {
             console.error("Report generation failed:", error);
-            alert("Failed to generate the report. Check the console for errors.");
+            alert("Failed to generate the report.");
         } finally {
             setLoading(false);
             setQuery('');
@@ -81,97 +71,59 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
         }
     };
 
-    const handleDownloadClick = (format) => {
+    const handleDownloadClick = async (format) => {
         if (messages.length === 0) return;
-    
-        // Get the most recent message
+
         const recentMessage = messages[messages.length - 1];
-        const reportText = recentMessage.text;
-    
+        const reportText = recentMessage.text.trim();
+
         try {
-            // Split report by sections using a delimiter like "**" (customize as needed)
-            const sections = reportText.split("**").filter((section) => section.trim() !== "");
-    
-            if (format === 'pdf') {
-                // Generate PDF
+            if (format === "pdf") {
                 const doc = new jsPDF();
-    
-                // Title Section - Use the first section title or default to "Untitled Report"
-                const title = sections[0]?.split(":")[0]?.trim() || "Untitled Report";
-                doc.setFontSize(16);
-                doc.setFont("helvetica", "bold");
-                doc.text(title, 105, 20, null, null, "center");
-    
-                let yPosition = 30;  // Starting Y position for the content
-                const lineHeight = 8;  // Line height to control vertical spacing
-    
-                sections.forEach((section) => {
-                    const [title, content] = section.split(":");  // Assuming title and content are split by ":"
-    
-                    if (title && content) {
-                        // Title of the section
-                        doc.setFontSize(14);
-                        doc.setFont("helvetica", "bold");
-                        doc.text(title.trim(), 10, yPosition);
-                        yPosition += lineHeight;
-    
-                        // Content of the section
-                        doc.setFontSize(12);
-                        doc.setFont("helvetica", "normal");
-                        const contentLines = doc.splitTextToSize(content.trim(), 180); // Wrap text to 180px width
-                        doc.text(contentLines, 10, yPosition);
-                        yPosition += contentLines.length * lineHeight + 5;  // Adjust for content length and spacing
+                doc.setFont("Times New Roman");
+                let yPosition = 20;
+                const lineHeight = 10;
+
+                // Splitting sections by detecting newlines before a capitalized title
+                const sections = reportText.split(/\n(?=[A-Z])/);
+
+                sections.forEach((section, index) => {
+                    if (index === 0) {
+                        doc.setFontSize(18).setFont(undefined, "bold").text(section.trim(), 105, yPosition, { align: "center" });
+                    } else {
+                        doc.setFontSize(16).setFont(undefined, "bold").text(section.trim(), 10, yPosition);
                     }
+                    yPosition += lineHeight * 2;
                 });
-    
-                // Save the PDF with a specific name
+
                 doc.save("Formatted_Report.pdf");
-    
-            } else if (format === 'docx') {
-                // Generate DOCX using your existing code (as you already have)
+
+            } else if (format === "docx") {
                 const doc = new Document({
                     sections: [
                         {
                             properties: {},
-                            children: [
+                            children: reportText.split("\n").map((line) => 
                                 new Paragraph({
-                                    text: sections[0]?.split(":")[0]?.trim() || "Untitled Report",
-                                    heading: "Heading1",
-                                    alignment: "center",
-                                }),
-                                ...sections.map((section) => {
-                                    const [title, content] = section.split(":");
-    
-                                    if (title && content) {
-                                        return [
-                                            new Paragraph({
-                                                text: title.trim(),
-                                                bold: true,
-                                                style: "Heading2",
-                                            }),
-                                            new Paragraph({
-                                                text: content.trim(),
-                                                style: "Normal",
-                                                spacing: { after: 20 },
-                                            }),
-                                        ];
-                                    }
-                                    return null;
-                                }).filter(Boolean),
-                            ],
+                                    children: [
+                                        new TextRun({
+                                            text: line.trim(),
+                                            bold: /^[A-Z]/.test(line), // Make section titles bold
+                                        }),
+                                    ],
+                                    spacing: { after: 200 },
+                                })
+                            ),
                         },
                     ],
                 });
-    
-                Packer.toBlob(doc).then((blob) => {
-                    saveAs(blob, "Formatted_Report.docx");  // Trigger download as DOCX
-                });
-    
+
+                const blob = await Packer.toBlob(doc);
+                saveAs(blob, "Formatted_Report.docx");
             }
-    
         } catch (error) {
             console.error("Error formatting the document:", error);
-            alert("There was an error trying to format the document. Please check the console for details.");
+            alert("There was an error trying to format the document.");
         }
     };
 
@@ -260,10 +212,7 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyPress={handleKeyPress}
                     />
-                    <button 
-                        className="AiGenerate-button" 
-                        onClick={user ? handleGenerateClick : handleLoginClick}
-                    >
+                    <button className="AiGenerate-button" onClick={user ? handleGenerateClick : handleLoginClick}>
                         Generate
                     </button>
 
