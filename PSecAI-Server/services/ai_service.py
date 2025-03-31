@@ -1,5 +1,5 @@
 import ollama
-from db.vector_db import retrieve_reports  # Only retrieve past reports from DB
+from db.vector_db import save_generated_report , retrieve_similar_reports
 
 # Dictionary to temporarily store the last report per user
 last_generated_reports = {}
@@ -7,10 +7,10 @@ last_generated_reports = {}
 def generate_report(user_id, prompt):
     """
     Generates a report based on user input, using past reports as context.
-    Stores the generated report in memory (without saving to DB).
+    Stores the generated report in MongoDB.
     """
-    past_reports = retrieve_reports(user_id)
-    context = "\n\n".join(past_reports)
+    past_reports = retrieve_similar_reports(user_id)  # Get similar past reports
+    context = "\n\n".join(past_reports) if past_reports else "No previous reports available."
 
     gpt_prompt = f"""You are an AI report writer.
     The user has previously written reports like this:
@@ -26,7 +26,9 @@ def generate_report(user_id, prompt):
     )
 
     report = response["message"]["content"]
-    last_generated_reports[user_id] = report  
+    last_generated_reports[user_id] = report
+
+    # save_generated_report(user_id, report, filename="generated_report.txt")  # Save to DB
 
     return report
 

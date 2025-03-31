@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Header.css';
-import { FaCog, FaUser } from 'react-icons/fa';
+import { FaCog, FaUser, FaSignOutAlt, FaFileAlt, FaBell, FaLock, FaSlidersH } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Login from '../components/Login';
 
@@ -8,6 +8,7 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
     const navigate = useNavigate();
     const [showLoginPopup, setShowLoginPopup] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showSettingsDropdown, setShowSettingsDropdown] = useState(false);
 
     const handleLogoClick = () => {
         navigate('/');
@@ -24,19 +25,22 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
     };
 
     const handleLoginClick = () => {
-        setShowLoginPopup(true);  // Show login popup
+        setShowLoginPopup(true);
     };
 
     const handleClosePopup = () => {
-        setShowLoginPopup(false);  // Close login popup
+        setShowLoginPopup(false);
     };
 
     const toggleDropdown = () => {
-        setShowDropdown(prevState => !prevState);  // Toggle the dropdown visibility
+        setShowDropdown(prevState => !prevState);
     };
 
-    // Fallback image for the profile
-    const defaultProfileImage = "https://www.example.com/default-profile-image.jpg";  // Replace with your default image URL
+    const toggleSettingsDropdown = () => {
+        setShowSettingsDropdown(prevState => !prevState);
+    };
+
+    const defaultProfileImage = "https://www.example.com/default-profile-image.jpg";
 
     return (
         <div className="header-container">
@@ -44,30 +48,33 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
                 <li className='logo' onClick={handleLogoClick}>PSec AI</li>
                 <li className='Date-time-container'>{getCurrentDateTime()}</li>
                 <li className='options'>
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={toggleSettingsDropdown}>
                         <FaCog className='option-icon'/>
+                        {showSettingsDropdown && (
+                            <div className="dropdown-menu">
+                                <button onClick={() => navigate('/settings')}><FaSlidersH /> General Settings</button>
+                                <button onClick={() => navigate('/notifications')}><FaBell /> Notifications</button>
+                                <button onClick={() => navigate('/privacy')}><FaLock /> Privacy</button>
+                            </div>
+                        )}
                     </div>
                     <div className="profile-option" onClick={user ? toggleDropdown : handleLoginClick}>
                         {user ? (
-                            // If user is logged in, show their profile picture
                             <img 
                                 src={user.photoURL || defaultProfileImage} 
                                 alt="Profile" 
                                 className="profile-img" 
                             />
                         ) : (
-                            // If not logged in, show default FaUser icon
                             <FaUser className='option-icon'/>
                         )}
+                        {showDropdown && user && (
+                            <div className="dropdown-menu">
+                                <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
+                                <button onClick={() => navigate('/Policypage')}><FaFileAlt /> Policy</button>
+                            </div>
+                        )}
                     </div>
-
-                    {/* Dropdown Menu */}
-                    {showDropdown && user && (
-                        <div className="dropdown-menu">
-                            <button onClick={onLogout}>Logout</button>
-                            <button onClick={() => navigate('/Policypage')}>Policy</button>
-                        </div>
-                    )}
                 </li>
             </ul>
 

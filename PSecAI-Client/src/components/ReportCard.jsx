@@ -1,21 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {FaFileAlt } from 'react-icons/fa';
+import { FaFileAlt } from 'react-icons/fa';
 import '../styles/ReportCard.css';
 
-const ReportCard = () => {
-     const navigate = useNavigate();
-    
+const ReportCard = ({ title, date }) => {
+    const navigate = useNavigate();
+
     const handleCardClick = () => {
-            navigate('/activitypage');
+        navigate('/activitypage');
     };
 
     return (
         <div className="card" onClick={handleCardClick}>
             <FaFileAlt className="card-icon" />
             <div className="content">
-                <h2 className="heading">Q3 Activity Report</h2>
-                <p className="subheading">Generated on Feb 24, 2025</p>
+                <h2 className="heading">{title}</h2>
+                <p className="subheading">Generated on {date}</p>
             </div>
         </div>
     );

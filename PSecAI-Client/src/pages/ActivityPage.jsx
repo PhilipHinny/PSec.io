@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from '../components/Sidebar';
-import { FaCog, FaUser, FaDownload } from 'react-icons/fa';
+import { FaCog, FaUser, FaDownload, FaSignOutAlt, FaFileAlt, FaBell, FaLock, FaSlidersH } from 'react-icons/fa';
 import '../styles/ActivityPage.css';
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import saveAs from "file-saver";
@@ -16,6 +16,7 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
     const [showLoginPopup, setShowLoginPopup] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [downloadFormat, setDownloadFormat] = useState('pdf');
+    const [showSettingsDropdown, setShowSettingsDropdown] = useState(false);
     const chatEndRef = useRef(null);
     const navigate = useNavigate();
 
@@ -33,6 +34,10 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
 
     const toggleDropdown = () => {
         setShowDropdown(prevState => !prevState);
+    };
+
+    const toggleSettingsDropdown = () => {
+        setShowSettingsDropdown(prevState => !prevState);
     };
 
     const handleGenerateClick = async () => {
@@ -152,25 +157,33 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
                 </div>
 
                 <div className="profile">
-                    <div className="settings-option">
-                        <FaCog className='option-icon'/>
-                    </div>
-                    <div className="profile-option" onClick={user ? toggleDropdown : handleLoginClick}>
-                        {user ? (
-                            <img 
-                                src={user.photoURL || "https://www.example.com/default-profile-image.jpg"} 
-                                alt="Profile" 
-                                className="profile-img" 
-                            />
-                        ) : (
-                            <FaUser className='option-icon'/>
-                        )}
-                    </div>
-                    {showDropdown && user && (
-                        <div className="dropdown-menu">
-                            <button onClick={onLogout}>Logout</button>
-                        </div>
-                    )}
+                    <div className="settings-option" onClick={toggleSettingsDropdown}>
+                                            <FaCog className='option-icon'/>
+                                            {showSettingsDropdown && (
+                                                <div className="dropdown-menu">
+                                                    <button onClick={() => navigate('/settings')}><FaSlidersH /> General Settings</button>
+                                                    <button onClick={() => navigate('/notifications')}><FaBell /> Notifications</button>
+                                                    <button onClick={() => navigate('/privacy')}><FaLock /> Privacy</button>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="profile-option" onClick={user ? toggleDropdown : handleLoginClick}>
+                                            {user ? (
+                                                <img 
+                                                    src={user.photoURL || defaultProfileImage} 
+                                                    alt="Profile" 
+                                                    className="profile-img" 
+                                                />
+                                            ) : (
+                                                <FaUser className='option-icon'/>
+                                            )}
+                                            {showDropdown && user && (
+                                                <div className="dropdown-menu">
+                                                    <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
+                                                    <button onClick={() => navigate('/Policypage')}><FaFileAlt /> Policy</button>
+                                                </div>
+                                            )}
+                                        </div>
                 </div>
                 {showLoginPopup && (
                     <div className="popup-overlay">

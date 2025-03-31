@@ -1,60 +1,46 @@
-import psycopg2
+from pymongo import MongoClient
 from config import DB_CONFIG
 from langchain_community.embeddings import OpenAIEmbeddings
-from pinecone import Pinecone, ServerlessSpec
 
-# Database Connection
-def get_db_connection():
-    return psycopg2.connect(**DB_CONFIG)
+# MongoDB Setup
+client = MongoClient(DB_CONFIG["MONGO_URI"])
+db = client[DB_CONFIG["DB_NAME"]]
+reports_collection = db["Generated_Reports"]
 
-def save_report_metadata(user_id, filename):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("INSERT INTO reports (user_id, filename) VALUES (%s, %s)", (user_id, filename))
-        conn.commit()
-
-# Pinecone Setup
-from config import PINECONE_INDEX_NAME, PINECONE_API_KEY
-
-pc = Pinecone(api_key=PINECONE_API_KEY)
-
-# Create index if it doesn't exist
-existing_indexes = [index["name"] for index in pc.list_indexes()]
-if PINECONE_INDEX_NAME not in existing_indexes:
-    pc.create_index(
-        name=PINECONE_INDEX_NAME,
-        dimension=1536,
-        metric='euclidean',
-        spec=ServerlessSpec(
-            cloud='aws',
-            region='us-east-1'
-        )
-    )
-
-vector_db = pc.Index(PINECONE_INDEX_NAME)
-
-def store_report(user_id, report_text):
-    # Generate the embedding for the report text using OpenAI
+def save_generated_report(user_id, report_text, filename):
+    # Generate embedding
     embedding = OpenAIEmbeddings().embed_query(report_text)
     
-    # Upsert the embedding into the vector database
-    vector_db.upsert([(user_id, embedding, {"text": report_text})])
+    # Prepare the document
+    report_doc = {
+        "user_id": user_id,
+        "filename": filename,
+        "report_text": report_text,
+        "embedding": embedding
+    }
+    
+    # Insert into MongoDB
+    reports_collection.insert_one(report_doc)
+    print(f"Generated report saved for user {user_id}")
 
-def retrieve_reports(user_id, top_k=5):
-    vector_to_query = get_vector_for_user(user_id)
+def retrieve_similar_reports(user_id, top_k=5):
+    user_reports = list(reports_collection.find({"user_id": user_id}))
 
-    # Query Pinecone with keyword arguments
-    results = vector_db.query(
-        vector=vector_to_query,
-        top_k=top_k,
-        include_metadata=True
-    )
+    if not user_reports:
+        return []
 
-    return [res["metadata"]["text"] for res in results["matches"]]
+    target_embedding = user_reports[0]["embedding"]
 
-def get_vector_for_user(user_id):
-    # Fetch user vector from Pinecone if it exists
-    response = vector_db.query(vector=[0]*1536, top_k=1, filter={"user_id": user_id})
-    if response["matches"]:
-        return response["matches"][0]["vector"]
-    return [0] * 1536  # Default vector if no data exists
+    # Calculate Euclidean Distance
+    def euclidean_distance(vec1, vec2):
+        return sum((a - b) ** 2 for a, b in zip(vec1, vec2)) ** 0.5
+
+    # Rank reports
+    scored_reports = []
+    for report in user_reports:
+        distance = euclidean_distance(target_embedding, report["embedding"])
+        scored_reports.append((distance, report["report_text"]))
+
+    # Sort and return top_k
+    scored_reports.sort(key=lambda x: x[0])
+    return [text for _, text in scored_reports[:top_k]]

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from db.vector_db import retrieve_reports
+from db.vector_db import save_generated_report
 
 get_reports_bp = Blueprint("get_reports", __name__)
 
@@ -11,7 +11,7 @@ def get_reports():
         return jsonify({"error": "Missing user_id"}), 400
     
     try:
-        reports = retrieve_reports(user_id)  # Fetch reports from the database
+        reports = save_generated_report(user_id)  # Fetch reports from the database
         
         if not reports:
             return jsonify({"message": "No reports found for this user."}), 404
