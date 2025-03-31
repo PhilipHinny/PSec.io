@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.file_service import extract_text_from_file
-from database import save_report
+from database import save_report_metadata
 
 upload_bp = Blueprint("upload", __name__)
 
@@ -33,7 +33,7 @@ def upload_report():
         extracted_text = extract_text_from_file(file)
 
         # Save metadata and extracted text to MongoDB
-        save_report(user_id, file.filename, extracted_text)
+        save_report_metadata(user_id, file.filename, extracted_text)
 
         return jsonify({"message": "Report uploaded and saved successfully!"}), 200
 
