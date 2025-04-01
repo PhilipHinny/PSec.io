@@ -70,7 +70,7 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
                         )}
                         {showDropdown && user && (
                             <div className="dropdown-menu">
-                                <button onClick={() => navigate('/Dashboard')}><FaTachometerAlt /> Dashboard</button>
+                                <button onClick={() => navigate('/MyDocumentPage')}><FaTachometerAlt /> Dashboard</button>
                                 <button onClick={() => navigate('/Policypage')}><FaFileAlt /> Policy</button>
                                 <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
                             </div>
