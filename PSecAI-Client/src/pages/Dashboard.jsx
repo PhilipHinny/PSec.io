@@ -35,7 +35,7 @@ const Dashboard = () => {
           <div className="nav-item" onClick={() => navigate('/Dashboard')}><FaHome /> Dashboard</div>
           <div className="nav-item" onClick={() => navigate('/MyDocumentPage')}><FaFileAlt /> My Documents</div>
           <div className="nav-item"><FaCog /> Account Settings</div>
-          <div className="nav-item"><FaCreditCard /> Billing & Plan</div>
+          <div className="nav-item"  onClick={() => navigate('/BillingPage')}><FaCreditCard /> Billing & Plan</div>
           <div className="nav-item"><FaQuestionCircle /> Help/Support</div>
           <div className="logout-container nav-item"><FaSignOutAlt /> Log out</div>
         </nav>
