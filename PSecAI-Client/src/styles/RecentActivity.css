@@ -1,0 +1,37 @@
+.activity-section{
+    margin-bottom: 2rem;
+  }
+
+.table-section {
+    margin-bottom: 30px;
+  }
+  
+  .table-section h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .document-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .document-table th {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .document-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #333;
+  }
+  

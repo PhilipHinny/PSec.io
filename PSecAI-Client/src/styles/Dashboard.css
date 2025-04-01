@@ -120,19 +120,20 @@
   .stats-container {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   
   .stat-card {
     border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 1rem;
     flex: 1;
   }
   
   .stat-title {
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 0.5rem;
   }
   
@@ -154,45 +155,7 @@
   }
   
   .stat-label {
-    margin-left: 0.5rem;
+    margin-left: 0.4rem;
     color: #4b5563;
   }
   
-  /* Tables */
-  .activity-section, .history-section {
-    margin-bottom: 2rem;
-  }
-  
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  
-  .data-table {
-    width: 100%;
-  }
-  
-  .table-header {
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .data-table th {
-    text-align: left;
-    padding-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  
-  .table-row {
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .table-row td {
-    padding: 0.75rem 0;
-  }
-  
-  .download-link {
-    color: #059669;
-    font-weight: 500;
-    text-decoration: none;
-  }
