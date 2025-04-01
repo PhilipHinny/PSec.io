@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Policypage from './pages/Policypage';
 import UploadPage from './pages/UploadPage';
 import { getAuth, onAuthStateChanged } from "firebase/auth"; // Firebase Auth imports
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const [user, setUser] = useState(null);  // Manage user state here
@@ -52,6 +53,8 @@ function App() {
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
           <Route path="/Policypage" element={<Policypage />} />
           <Route path="/uploadPage" element={<UploadPage user={user} />} />
+          <Route path="/dashboard" element={< Dashboard />} />
+
         </Routes>
       </Router>
     </div>
