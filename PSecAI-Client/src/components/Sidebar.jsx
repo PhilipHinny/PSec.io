@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Sidebar.css";
 import { FaSearch } from "react-icons/fa";
-import axios from "axios"; // Make sure axios is installed
-import ReportCard from "../components/ReportCard"; // Import the updated ReportCard
+import ReportCard from "../components/ReportCard"; 
+import "../styles/Sidebar.css";
+import axios from "axios"; 
 
 const Sidebar = () => {
     const [reports, setReports] = useState([]);
@@ -22,10 +22,10 @@ const Sidebar = () => {
     }, []);
 
     return (
-        <div className="sidebar-container">
-            <div className="sidebar-header">
+        <div className="chat-sidebar-container">
+            <div className="chat-sidebar-header">
                 <h2>Recent Reports</h2>
-                <FaSearch className="search-icon" />
+                <FaSearch className="sidebar-search-icon" />
             </div>
 
             <div className="report-list">

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; 
 import Home from './pages/Home';
 import ActivityPage from './pages/ActivityPage';
-import './styles/App.css';
 import Login from './components/Login';
 import Header from './components/Header';
 import Policypage from './pages/Policypage';
 import UploadPage from './pages/UploadPage';
 import MyDocumentPage from './pages/MyDocumentPage';
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Firebase Auth imports
 import Dashboard from './pages/Dashboard';
 import BillingPage from './pages/BillingPage';
 import AccountSettings from './pages/AccountSetting';
+import './styles/App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,21 +39,42 @@ function App() {
 
 function AppContent({ user, setUser, showLogin, setShowLogin }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
     setShowLogin(false);
   };
 
-  const handleLogout = () => {
-    setUser(null);
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth); 
+      setUser(null); 
+      navigate("/"); 
+    } catch (error) {
+      console.error("Logout error:", error); 
+    }
   };
 
   const handleClose = () => {
     setShowLogin(false);
   };
 
-  // Hide Header on MyDocumentPage and Dashboard
+  const handleLogoutAllDevices = async () => {
+    const auth = getAuth();
+    try {
+      // Force refresh token to revoke the previous session
+      await auth.currentUser?.getIdToken(true); 
+      await signOut(auth); 
+      setUser(null);
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out from all devices:", error);
+    }
+  };
+
+  // Hide Header on specific pages
   const hideHeaderPages = ["/MyDocumentPage", "/Dashboard", "/BillingPage", "/AccountSetting"];
   const shouldShowHeader = !hideHeaderPages.includes(location.pathname);
 
@@ -66,14 +87,18 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
         <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
         <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
         <Route path="/Policypage" element={<Policypage />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard user={user} onLogout={handleLogout} />} />
         <Route path="/uploadPage" element={<UploadPage user={user} />} />
-        <Route path="/MyDocumentPage" element={<MyDocumentPage />} />
-        <Route path="/BillingPage" element={<BillingPage />} />
-        <Route path="/AccountSetting" element={<AccountSettings />} />
+        <Route path="/MyDocumentPage" element={<MyDocumentPage user={user} onLogout={handleLogout} />} />
+        <Route path="/BillingPage" element={<BillingPage user={user} onLogout={handleLogout} />} />
+        <Route
+          path="/AccountSetting"
+          element={<AccountSettings user={user} onLogout={handleLogout} LogoutAll={handleLogoutAllDevices} />}
+        />
       </Routes>
     </>
   );
 }
+
 
 export default App;

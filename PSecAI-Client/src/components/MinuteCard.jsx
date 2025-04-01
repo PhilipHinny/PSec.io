@@ -1,17 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {FaFileAlt } from 'react-icons/fa';
 import '../styles/ReportCard.css';
 
-const ReportCard = () => {
+const MintuesCard = ({ title, date }) => {
+
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate('/activitypage');
+    };
+
     return (
-        <div className="card">
-            <FaFileAlt className="card-icon" />
-            <div className="content">
-                <h2 className="heading">Meeting with HR</h2>
-                <p className="subheading">Time: Conference Room</p>
-            </div>
-        </div>
+        <div className="card" onClick={handleCardClick}>
+                    <FaFileAlt className="card-icon" />
+                    <div className="card-content">
+                        <h2 className="card-heading">{title}</h2>
+                        <p className="card-subheading">Generated on {date}</p>
+                    </div>
+                </div>
     );
 };
 
-export default ReportCard;
+export default MintuesCard;
