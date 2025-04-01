@@ -13,9 +13,9 @@ const ReportCard = ({ title, date }) => {
     return (
         <div className="card" onClick={handleCardClick}>
             <FaFileAlt className="card-icon" />
-            <div className="content">
-                <h2 className="heading">{title}</h2>
-                <p className="subheading">Generated on {date}</p>
+            <div className="card-content">
+                <h2 className="card-heading">{title}</h2>
+                <p className="card-subheading">Generated on {date}</p>
             </div>
         </div>
     );

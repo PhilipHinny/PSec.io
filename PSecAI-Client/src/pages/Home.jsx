@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../styles/Home.css';
 import ReportTab from '../components/ReportTab';
-import MinuteTab from '../components/InsightTab';
+import MinuteTab from '../components/MinuteTab';
 import InsightTab from '../components/InsightTab';
 import GenerateButton from '../components/GenerateButton';
 
