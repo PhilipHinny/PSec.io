@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Header.css';
-import { FaCog, FaUser, FaSignOutAlt, FaFileAlt, FaBell, FaLock, FaSlidersH } from 'react-icons/fa';
+import { FaCog, FaUser, FaSignOutAlt, FaFileAlt, FaBell, FaLock, FaSlidersH, FaTachometerAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Login from '../components/Login';
 
@@ -70,8 +70,9 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
                         )}
                         {showDropdown && user && (
                             <div className="dropdown-menu">
-                                <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
+                                <button onClick={() => navigate('/Dashboard')}><FaTachometerAlt /> Dashboard</button>
                                 <button onClick={() => navigate('/Policypage')}><FaFileAlt /> Policy</button>
+                                <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
                             </div>
                         )}
                     </div>
