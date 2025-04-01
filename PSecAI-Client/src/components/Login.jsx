@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 
 function Login({ handleClose, onLoginSuccess }) {
   const googleProvider = new GoogleAuthProvider();
-  const facebookProvider = new FacebookAuthProvider();
+  // const facebookProvider = new FacebookAuthProvider();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -19,7 +19,7 @@ function Login({ handleClose, onLoginSuccess }) {
     setLoading(true);
 
     try {
-      const userCredential = await signInWithRedirect(auth, googleProvider); 
+      const userCredential = await signInWithPopup(auth, googleProvider); 
       const user = userCredential.user; // Get the authenticated user
       onLoginSuccess(user); // Pass user data to the parent component
       setSuccess('Google login successful!');
@@ -31,23 +31,23 @@ function Login({ handleClose, onLoginSuccess }) {
     }
   };
 
-  const handleFacebookClick = async () => {
-    setError(null);
-    setSuccess(null);
-    setLoading(true);
+  // const handleFacebookClick = async () => {
+  //   setError(null);
+  //   setSuccess(null);
+  //   setLoading(true);
 
-    try {
-      const userCredential = await signInWithRedirect(auth, facebookProvider); 
-      const user = userCredential.user; // Get the authenticated user
-      onLoginSuccess(user); // Pass user data to the parent component
-      setSuccess('Facebook login successful!');
-      handleClose();
-    } catch (error) {
-      setError(error.message || 'An error occurred during Facebook login.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   try {
+  //     const userCredential = await signInWithRedirect(auth, facebookProvider); 
+  //     const user = userCredential.user; // Get the authenticated user
+  //     onLoginSuccess(user); // Pass user data to the parent component
+  //     setSuccess('Facebook login successful!');
+  //     handleClose();
+  //   } catch (error) {
+  //     setError(error.message || 'An error occurred during Facebook login.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="login-page">
@@ -61,11 +61,11 @@ function Login({ handleClose, onLoginSuccess }) {
           {loading ? 'Logging in...' : 'Sign in with Google'}
         </button>
 
-        {/* Facebook Login Button */}
+        {/* Facebook Login Button
         <button className="loginIcon" onClick={handleFacebookClick} disabled={loading}>
           <img src='/facebook.png' alt='Facebook icon' />
           {loading ? 'Logging in...' : 'Sign in with Facebook'}
-        </button>
+        </button> */}
 
         {/* X (Twitter) Login Button */}
         <button className="loginIcon">
