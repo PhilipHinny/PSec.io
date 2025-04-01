@@ -1,7 +1,7 @@
 /* Main Layout */
 .dashboard-container {
     display: flex;
-    height: 100vh;
+    height: auto;
     background-color: white;
   }
   
@@ -9,9 +9,38 @@
   .sidebar {
     width: 240px;
     background-color: #f8fafc;
-    padding: 1rem;
+    padding-left: 15px;
+    padding-right: 15px;
     display: flex;
     flex-direction: column;
+  }
+
+  .Dashboard-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 20px;
+  }
+  
+  .Dashboard-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: white;
+  }
+  
+  .logo-image{
+    width: 100%;
+  }
+  
+  .Dashboard-logo h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
   }
   
   
@@ -22,30 +51,20 @@
     gap: 1rem;
   }
   
-  .sidebar-item {
+  .nav-item{
     display: flex;
     align-items: center;
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: #374151;
+    font-size: 18px;
+    font-weight: 500;
+    gap: 15px;
     cursor: pointer;
   }
   
-  .sidebar-item:hover {
+  .nav-item:hover {
     background-color: #f3f4f6;
-  }
-  
-  .sidebar-item.active {
-    background-color: #dbeafe;
-    color: #1e40af;
-  }
-  
-  .sidebar-icon {
-    margin-right: 0.75rem;
-  }
-  
-  .sidebar-text {
-    font-weight: 500;
   }
   
   .logout-container {
@@ -55,12 +74,13 @@
   /* Main Content Styles */
   .main-content {
     flex: 1;
-    overflow: auto;
+    padding: 0;
   }
   
   .header {
     border-bottom: 1px solid #e5e7eb;
-    padding: 1rem;
+    padding: 10px;
+    margin: 0px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
