@@ -11,6 +11,7 @@ import MyDocumentPage from './pages/MyDocumentPage';
 import { getAuth, onAuthStateChanged } from "firebase/auth"; // Firebase Auth imports
 import Dashboard from './pages/Dashboard';
 import BillingPage from './pages/BillingPage';
+import AccountSettings from './pages/AccountSetting';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -53,7 +54,7 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
   };
 
   // Hide Header on MyDocumentPage and Dashboard
-  const hideHeaderPages = ["/MyDocumentPage", "/Dashboard", "/BillingPage"];
+  const hideHeaderPages = ["/MyDocumentPage", "/Dashboard", "/BillingPage", "/AccountSetting"];
   const shouldShowHeader = !hideHeaderPages.includes(location.pathname);
 
   return (
@@ -69,6 +70,7 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
         <Route path="/uploadPage" element={<UploadPage user={user} />} />
         <Route path="/MyDocumentPage" element={<MyDocumentPage />} />
         <Route path="/BillingPage" element={<BillingPage />} />
+        <Route path="/AccountSetting" element={<AccountSettings />} />
       </Routes>
     </>
   );
