@@ -1,0 +1,202 @@
+/* Billing Content Styles */
+.billing-content {
+    padding: 24px;
+    max-width: 896px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  
+  .section {
+    margin-bottom: 32px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  /* Plan Table Styles */
+  .plan-table-container {
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .plan-table {
+    width: 100%;
+  }
+  
+  .table-header {
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .plan-table th {
+    padding: 12px 0;
+    text-align: left;
+    font-weight: 500;
+  }
+  
+  .plan-table td {
+    padding: 12px 0;
+  }
+  
+  /* Payment Methods Styles */
+  .payment-methods {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .payment-icon {
+    width: 48px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mastercard {
+    display: flex;
+    align-items: center;
+  }
+  
+  .circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  
+  .red {
+    background-color: #ef4444;
+  }
+  
+  .yellow {
+    background-color: #f59e0b;
+    margin-left: -16px;
+  }
+  
+  .visa {
+    width: 40px;
+    height: 24px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+  
+  .payment-svg {
+    width: 32px;
+    height: 32px;
+    color: #2563eb;
+  }
+  
+  .pay-button {
+    width: 40px;
+    height: 24px;
+    background-color: #fbbf24;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .google-pay {
+    width: 32px;
+    height: 32px;
+    background-color: #3b82f6;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Card Details Styles */
+  .card-details {
+    margin-bottom: 24px;
+  }
+  
+  .subsection-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  .card-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .card-input {
+    background-color: #e5e7eb;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+  }
+  
+  .card-number {
+    width: 100%;
+    max-width: 256px;
+  }
+  
+  .expiry-date {
+    width: 100%;
+    max-width: 160px;
+  }
+  
+  .cvv {
+    width: 100%;
+    max-width: 96px;
+  }
+  
+  .update-button {
+    background-color: #059669;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  /* Cancellation Styles */
+  .cancellation-text {
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  
+  .cancel-button {
+    background-color: #dc2626;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .card-form {
+      flex-direction: column;
+    }
+    
+    .card-number, .expiry-date, .cvv {
+      max-width: 100%;
+    }
+    
+    .update-button {
+      margin-left: 0;
+    }
+  }
+  
