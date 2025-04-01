@@ -53,18 +53,20 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
 
   return (
     <>
-      {location.pathname !== "/MyDocumentPage" && (
-        <Header user={user} onLogout={handleLogout} onLoginSuccess={handleLoginSuccess} />
-        {showLogin && <Login handleClose={handleClose} onLoginSuccess={handleLoginSuccess} />}
-        <Routes>
-          <Route path="/" element={<Home user={user} />} />
-          <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
-          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
-          <Route path="/Policypage" element={<Policypage />} />
-          <Route path="/uploadPage" element={<UploadPage user={user} />} />
-        </Routes>
-      </Router>
-    </div>
+      {location.pathname !== "/Dashboard" && (
+        <>
+          <Header user={user} onLogout={handleLogout} onLoginSuccess={handleLoginSuccess} />
+          {showLogin && <Login handleClose={handleClose} onLoginSuccess={handleLoginSuccess} />}
+          <Routes>
+            <Route path="/" element={<Home user={user} />} />
+            <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
+            <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
+            <Route path="/Policypage" element={<Policypage />} />
+            <Route path="/uploadPage" element={<UploadPage user={user} />} />
+          </Routes>
+        </>
+      )}
+    </>
   );
 }
 
