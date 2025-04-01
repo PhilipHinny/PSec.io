@@ -1,7 +1,6 @@
 /* Billing Content Styles */
 .billing-content {
-    padding: 24px;
-    max-width: 896px;
+    padding: 1.5rem;
   }
   
   .page-title {
@@ -30,92 +29,32 @@
     width: 100%;
   }
   
-  .table-header {
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
   .plan-table th {
-    padding: 12px 0;
     text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
     font-weight: 500;
+    color: #555;
+    font-size: 16px;
+    font-weight: 700;
   }
   
   .plan-table td {
-    padding: 12px 0;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #333;
   }
   
   /* Payment Methods Styles */
   .payment-methods {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     margin-bottom: 24px;
   }
   
-  .payment-icon {
-    width: 48px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mastercard {
-    display: flex;
-    align-items: center;
-  }
-  
-  .circle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-  }
-  
-  .red {
-    background-color: #ef4444;
-  }
-  
-  .yellow {
-    background-color: #f59e0b;
-    margin-left: -16px;
-  }
-  
-  .visa {
-    width: 40px;
-    height: 24px;
-    background-color: #2563eb;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-  }
-  
-  .payment-svg {
-    width: 32px;
-    height: 32px;
-    color: #2563eb;
-  }
-  
-  .pay-button {
-    width: 40px;
-    height: 24px;
-    background-color: #fbbf24;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .google-pay {
-    width: 32px;
-    height: 32px;
-    background-color: #3b82f6;
-    border-radius: 4px;
-    color: white;
+  .payment-icon img {
+    width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,9 +66,10 @@
   }
   
   .subsection-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
   }
   
   .card-form {
@@ -142,7 +82,7 @@
     background-color: #e5e7eb;
     border: none;
     border-radius: 6px;
-    padding: 8px 16px;
+    padding: 10px 20px;
   }
   
   .card-number {
@@ -164,6 +104,8 @@
     background-color: #059669;
     color: white;
     padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
     border-radius: 6px;
     border: none;
     cursor: pointer;
@@ -174,12 +116,15 @@
   .cancellation-text {
     margin-bottom: 16px;
     line-height: 1.5;
+    font-size: 14px;
   }
   
   .cancel-button {
     background-color: #dc2626;
+    font-size: 14px;
+    font-weight: 600;
     color: white;
-    padding: 8px 24px;
+    padding: 10px 24px;
     border-radius: 6px;
     border: none;
     cursor: pointer;

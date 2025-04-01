@@ -1,15 +1,7 @@
 import React from "react";
-import { 
-  FaHome, 
-  FaFileAlt, 
-  FaCog, 
-  FaCreditCard, 
-  FaQuestionCircle, 
-  FaSignOutAlt, 
-  FaUser, 
-} from "react-icons/fa";
+import { FaHome, FaFileAlt, FaCog, FaCreditCard, FaQuestionCircle, FaSignOutAlt, FaUser, } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import "../styles/BillingPage.css"; // Import your CSS file for styling
+import "../styles/BillingPage.css"; 
 
 const BillingPage = () => {
   const navigate = useNavigate();
@@ -81,18 +73,14 @@ const BillingPage = () => {
           <div className="section">
             <h2 className="section-title">Payment Methods</h2>
             <div className="payment-methods">
-              <div className="payment-icon mastercard">
-                <div className="circle red"></div>
-                <div className="circle yellow"></div>
+              <div className="payment-icon">
+                <img src="/mastercard.png" alt="MasterCard" className="payment-logo" />
               </div>
               <div className="payment-icon">
-                <div className="visa">VISA</div>
+              <img src="/visa.png" alt="Visa" className="payment-logo" />
               </div>
               <div className="payment-icon">
-                <div className="pay-button">pay</div>
-              </div>
-              <div className="payment-icon">
-                <div className="google-pay">G</div>
+              <img src="/apple.png" alt="Apple Pay" className="payment-logo" />
               </div>
             </div>
             
