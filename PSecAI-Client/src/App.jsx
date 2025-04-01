@@ -51,21 +51,23 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
     setShowLogin(false);
   };
 
+  // Hide Header on MyDocumentPage and Dashboard
+  const hideHeaderPages = ["/MyDocumentPage", "/Dashboard"];
+  const shouldShowHeader = !hideHeaderPages.includes(location.pathname);
+
   return (
     <>
-      {location.pathname !== "/Dashboard" && (
-        <>
-          <Header user={user} onLogout={handleLogout} onLoginSuccess={handleLoginSuccess} />
-          {showLogin && <Login handleClose={handleClose} onLoginSuccess={handleLoginSuccess} />}
-          <Routes>
-            <Route path="/" element={<Home user={user} />} />
-            <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
-            <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
-            <Route path="/Policypage" element={<Policypage />} />
-            <Route path="/uploadPage" element={<UploadPage user={user} />} />
-          </Routes>
-        </>
-      )}
+      {shouldShowHeader && <Header user={user} onLogout={handleLogout} onLoginSuccess={handleLoginSuccess} />}
+      {showLogin && <Login handleClose={handleClose} onLoginSuccess={handleLoginSuccess} />}
+      <Routes>
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
+        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
+        <Route path="/Policypage" element={<Policypage />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/uploadPage" element={<UploadPage user={user} />} />
+        <Route path="/MyDocumentPage" element={<MyDocumentPage />} />
+      </Routes>
     </>
   );
 }

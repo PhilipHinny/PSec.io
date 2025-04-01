@@ -1,65 +1,52 @@
 import React from 'react';
-import '../styles/DocumentDashboard.css'; // Import your CSS file for styling
+import '../styles/DocumentDashboard.css'; 
+import { 
+    FaHome, 
+    FaFileAlt, 
+    FaCog, 
+    FaCreditCard, 
+    FaQuestionCircle, 
+    FaUser, 
+    FaSignOutAlt 
+  } from "react-icons/fa";
+  import { useNavigate } from "react-router-dom";
+
 
 function DocumentDashboard() {
+
+    const navigate = useNavigate();
+
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
-      <div className="MyDocument-sidebar">
-        <div className="MyDocument-logo">
-          <div className="MyDocument-logo-icon">
-          <img src="/PsecIcon.png" alt="Logo" className="logo-image" />
-          </div>
-          <h2>PSec Ai</h2>
-        </div>
-
-        <nav className="MyDocument-nav-menu">
-          <ul>
-            <li>
-              <a href="#" className="MyDocument-nav-item">
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#" className="MyDocument-nav-item">
-                My Documents
-              </a>
-            </li>
-            <li>
-              <a href="#" className="MyDocument-nav-item">
-                Account Settings
-              </a>
-            </li>
-            <li>
-              <a href="#" className="MyDocument-nav-item">
-                Billing & Plan
-              </a>
-            </li>
-            <li>
-              <a href="#" className="MyDocument-nav-item">
-                Help/Support
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="logout">
-          <a href="#" className="logout-btn">
-            Log out
-          </a>
-        </div>
-      </div>
+        {/* Sidebar */}
+              <div className="sidebar">
+                <div className="Dashboard-logo">
+                  <div className="Dashboard-logo-icon">
+                    <img src="/PsecIcon.png" alt="Logo" className="logo-image" />
+                  </div>
+                  <h2>PSec Ai</h2>
+                </div>
+                <nav className="nav-menu">
+                  <div className="nav-item " onClick={() => navigate('/Dashboard')}><FaHome /> Dashboard</div>
+                  <div className="nav-item " onClick={() => navigate('/MyDocumentPage')}><FaFileAlt /> My Documents</div>
+                  <div className="nav-item "><FaCog /> Account Settings</div>
+                  <div className="nav-item "><FaCreditCard /> Billing & Plan</div>
+                  <div className="nav-item "><FaQuestionCircle /> Help/Support</div>
+                  <div className="logout-container nav-item"><FaSignOutAlt /> Log out</div>
+                </nav>
+              </div>
 
       {/* Main Content */}
       <div className="main-content">
-        <div className="header">
-          <button className="upload-btn">
-            <span className="plus-icon">+</span> Upload
-          </button>
-          <div className="user-profile">
-            <div className="profile-icon"></div>
-          </div>
-        </div>
+                {/* Header */}
+                <header className="header">
+                  <button className="upload-button" onClick={() => navigate("/UploadPage")}>
+                    Upload
+                  </button>
+                  <div className="user-icon">
+                    <FaUser size={20} />
+                  </div>
+                </header>
 
         <div className="content">
           <h1>My Documents</h1>

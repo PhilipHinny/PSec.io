@@ -17,17 +17,20 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
-      <div className="sidebar">
-
-        <nav className="nav-menu">
-          <SidebarItem icon={<FaHome />} text="Dashboard" active />
-          <SidebarItem icon={<FaFileAlt />} text="My Documents" />
-          <SidebarItem icon={<FaCog />} text="Account Settings" />
-          <SidebarItem icon={<FaCreditCard />} text="Billing & Plan" />
-          <SidebarItem icon={<FaQuestionCircle />} text="Help/Support" />
-          <div className="logout-container">
-            <SidebarItem icon={<FaSignOutAlt />} text="Log out" />
+        <div className="sidebar">
+          <div className="Dashboard-logo">
+            <div className="Dashboard-logo-icon">
+          <img src="/PsecIcon.png" alt="Logo" className="logo-image" />
           </div>
+          <h2>PSec Ai</h2>
+        </div>
+        <nav className="nav-menu">
+          <div className="nav-item" onClick={() => navigate('/Dashboard')}><FaHome /> Dashboard</div>
+          <div className="nav-item" onClick={() => navigate('/MyDocumentPage')}><FaFileAlt /> My Documents</div>
+          <div className="nav-item"><FaCog /> Account Settings</div>
+          <div className="nav-item"><FaCreditCard /> Billing & Plan</div>
+          <div className="nav-item"><FaQuestionCircle /> Help/Support</div>
+          <div className="logout-container nav-item"><FaSignOutAlt /> Log out</div>
         </nav>
       </div>
 
@@ -47,24 +50,9 @@ const Dashboard = () => {
         <div className="dashboard-content">
           {/* Stats Cards */}
           <div className="stats-container">
-            <StatCard 
-              title="Reports Uploaded" 
-              count={5} 
-              label="Documents" 
-              colorClass="green-count" 
-            />
-            <StatCard 
-              title="Reports Generated" 
-              count={8} 
-              label="Documents" 
-              colorClass="blue-count" 
-            />
-            <StatCard 
-              title="Reports Downloaded" 
-              count={5} 
-              label="Documents" 
-              colorClass="green-count" 
-            />
+            <StatCard title="Reports Uploaded" count={5} label="Documents" colorClass="green-count" />
+            <StatCard title="Reports Generated" count={8} label="Documents" colorClass="blue-count" />
+            <StatCard title="Reports Downloaded" count={5} label="Documents" colorClass="green-count" />
           </div>
 
           {/* Recent Activity */}
@@ -80,24 +68,9 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                <ActivityRow 
-                  date="27 Feb, 2025, 10:30PM" 
-                  document="Q1 Performance Report" 
-                  action="Generated" 
-                  status="Successful" 
-                />
-                <ActivityRow 
-                  date="27 Feb, 2025, 10:30PM" 
-                  document="Q2 Performance Report" 
-                  action="Downloaded" 
-                  status="Successful" 
-                />
-                <ActivityRow 
-                  date="27 Feb, 2025, 10:30PM" 
-                  document="Q2 Performance Report" 
-                  action="Downloaded" 
-                  status="Successful" 
-                />
+                <ActivityRow date="27 Feb, 2025, 10:30PM" document="Q1 Performance Report" action="Generated" status="Successful" />
+                <ActivityRow date="27 Feb, 2025, 10:30PM" document="Q2 Performance Report" action="Downloaded" status="Successful" />
+                <ActivityRow date="27 Feb, 2025, 10:30PM" document="Q2 Performance Report" action="Downloaded" status="Successful" />
               </tbody>
             </table>
           </div>
@@ -115,31 +88,13 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                <HistoryRow 
-                  date="27 Feb, 2025, 10:30PM" 
-                  document="Q2 Performance Report" 
-                  type="Personal" 
-                />
-                <HistoryRow 
-                  date="27 Feb, 2025, 10:30PM" 
-                  document="Annual Sales Report" 
-                  type="Sales" 
-                />
+                <HistoryRow date="27 Feb, 2025, 10:30PM" document="Q2 Performance Report" type="Personal" />
+                <HistoryRow date="27 Feb, 2025, 10:30PM" document="Annual Sales Report" type="Sales" />
               </tbody>
             </table>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-// Sidebar Item Component
-const SidebarItem = ({ icon, text, active }) => {
-  return (
-    <div className={`sidebar-item ${active ? "active" : ""}`}>
-      <div className="sidebar-icon">{icon}</div>
-      <span className="sidebar-text">{text}</span>
     </div>
   );
 };
@@ -150,9 +105,7 @@ const StatCard = ({ title, count, label, colorClass }) => {
     <div className="stat-card">
       <h3 className="stat-title">{title}</h3>
       <div className="stat-value">
-        <span className={colorClass}>
-          {count}
-        </span>
+        <span className={colorClass}>{count}</span>
         <span className="stat-label">{label}</span>
       </div>
     </div>
@@ -179,9 +132,7 @@ const HistoryRow = ({ date, document, type }) => {
       <td>{document}</td>
       <td>{type}</td>
       <td>
-        <a href="#" className="download-link">
-          Download
-        </a>
+        <a href="#" className="download-link">Download</a>
       </td>
     </tr>
   );
