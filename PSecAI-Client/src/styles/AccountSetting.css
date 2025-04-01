@@ -1,0 +1,204 @@
+/* Main Layout */
+.page-container {
+    display: flex;
+    height: auto;
+    background-color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  /* Profile Section */
+  .profile-section {
+    display: flex;
+    margin-bottom: 32px;
+  }
+  
+  .profile-picture {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 24px;
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    flex: 1;
+  }
+  
+  .field-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .field-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .field-input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f3f4f6;
+  }
+  
+  /* Section Styles */
+  .section {
+    margin-bottom: 32px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .section-subtitle {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  /* Password Fields */
+  .password-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .password-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f3f4f6;
+  }
+  
+  /* Two-Factor Authentication */
+  .enable-button {
+    padding: 8px 24px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f3f4f6;
+    cursor: pointer;
+  }
+  
+  /* Report Preferences */
+  .format-options {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .format-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .format-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .format-radio {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    margin-right: 8px;
+    position: relative;
+  }
+  
+  .format-radio.selected {
+    border-color: #059669;
+  }
+  
+  .format-radio.selected::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #059669;
+  }
+  
+  .format-label {
+    font-weight: 500;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+  
+  .logout-all-button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background-color: #ef4444;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .save-button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background-color: #059669;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .page-container {
+      flex-direction: column;
+    }
+    
+    .sidebar {
+      width: 100%;
+      padding: 12px;
+    }
+    
+    .profile-section {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .profile-picture {
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
+    
+    .password-fields {
+      flex-direction: column;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .logout-all-button, .save-button {
+      width: 100%;
+    }
+  }
