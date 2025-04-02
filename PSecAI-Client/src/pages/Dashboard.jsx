@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaHome, FaFileAlt, FaCog, FaCreditCard, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import "../styles/Dashboard.css";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,11 @@ import RecentActivity from "../components/RecentActivity";
 import ReportGenerationHistory from "../components/ReportGenerationHistory";
 
 const Dashboard = ({ user, onLogout }) => {
+  const [stats, setStats] = useState({
+    uploadedCount: 0,
+    generatedCount: 0,
+    downloadedCount: 0
+  });
   const navigate = useNavigate();
   const defaultProfileImage = "https://www.example.com/default-profile-image.jpg";
 
@@ -21,6 +26,27 @@ const Dashboard = ({ user, onLogout }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Fetch report stats from the backend
+    const fetchReportStats = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/report-stats");
+        const data = await response.json();
+        if (response.ok) {
+          setStats({
+            uploadedCount: data.uploaded_count,
+            generatedCount: data.generated_count,
+            downloadedCount: data.downloaded_count
+          });
+        } else {
+          console.error("Error fetching report stats:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching report stats:", error);
+      }
+    };
+
+    fetchReportStats();
   }, []);
 
   return (
@@ -63,9 +89,9 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="dashboard-content">
           {/* Stats Cards */}
           <div className="stats-container">
-            <StatCard title="Reports Uploaded" count={5} label="Documents" colorClass="green-count" />
-            <StatCard title="Reports Generated" count={8} label="Documents" colorClass="blue-count" />
-            <StatCard title="Reports Downloaded" count={5} label="Documents" colorClass="green-count" />
+            <StatCard title="Reports Uploaded" count={stats.uploadedCount} label="Documents" colorClass="green-count" />
+            <StatCard title="Reports Generated" count={stats.uploadedCount} label="Documents" colorClass="blue-count" />
+            <StatCard title="Reports Downloaded" count={stats.uploadedCount} label="Documents" colorClass="green-count" />
           </div>
 
           {/* Recent Activity */}
