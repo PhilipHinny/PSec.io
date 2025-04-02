@@ -62,3 +62,29 @@
 .contact-info a:hover {
     text-decoration: underline;
 }
+
+/* Tablet screens (768px and below) */
+@media screen and (max-width: 768px) {
+    .privacy-policy-container {
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 15px;
+    }
+
+    .privacy-policy-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .privacy-policy-section h2 {
+        font-size: 20px;
+    }
+
+    .privacy-policy-section p {
+        font-size: 15px;
+    }
+
+    .contact-info {
+        font-size: 15px;
+    }
+}

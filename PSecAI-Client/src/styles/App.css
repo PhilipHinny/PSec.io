@@ -19,4 +19,28 @@ body {
     background-repeat: no-repeat;
     animation: gradientChange 10s infinite;
     transition: background 2s ease-in-out;
-  }
+}
+
+/* Tablet screens (768px and below) */
+@media screen and (max-width: 768px) {
+    body {
+        background-size: cover;
+        min-height: auto;
+    }
+}
+
+/* Standard phone screens (480px and below) */
+@media screen and (max-width: 480px) {
+    body {
+        background-size: cover;
+        min-height: auto;
+    }
+}
+
+/* Foldable screens (280px and below) */
+@media screen and (max-width: 280px) {
+    body {
+        background-size: cover;
+        min-height: auto;
+    }
+}

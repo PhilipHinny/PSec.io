@@ -130,18 +130,64 @@
     cursor: pointer;
   }
   
-  /* Responsive Styles */
-  @media (max-width: 768px) {
+  /* Tablet screens (768px and below) */
+  @media screen and (max-width: 768px) {
+    .billing-content {
+      padding: 0.5rem;
+    }
+    
+    .page-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    
+    .section {
+      margin-bottom: 24px;
+    }
+    
+    .section-title {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .plan-table th {
+      font-size: 12px;
+      padding: 5px;
+    }
+    
+    .plan-table td {
+      font-size: 11px;
+      padding: 12px;
+    }
+    
+    .payment-methods {
+      gap: 20px;
+    }
+    
+    .payment-icon img {
+      width: 40px;
+    }
+    
     .card-form {
       flex-direction: column;
     }
     
     .card-number, .expiry-date, .cvv {
-      max-width: 100%;
+      max-width: 80%;
     }
     
     .update-button {
       margin-left: 0;
+      width: 100%;
+    }
+    
+    .cancellation-text {
+      font-size: 12px;
+    }
+    
+    .cancel-button {
+      font-size: 13px;
+      padding: 8px 20px;
     }
   }
   

@@ -170,3 +170,72 @@
   .recovery-input:focus {
     border-color: #2563eb; 
   }
+
+  /* Tablet screens (768px and below) */
+  @media screen and (max-width: 768px) {
+    .settings-content {
+      padding: 0.5rem;
+    }
+
+    .profile-picture {
+      display: none;
+    }
+ 
+    .profile-section {
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .profile-picture {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    .profile-fields {
+      width: 100%;
+    }
+
+    .field-input {
+      font-size: 11px;
+      padding: 8px;
+      width: 90%;
+    }
+    
+    .field-label {
+      font-size: 12px;
+    }
+
+    .format-options {
+      gap: 10px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .logout-all-button, .save-button {
+      width: 100%;
+    }
+
+    .notification-options {
+      gap: 10px;
+    }
+    
+    .notification-options label {
+      font-size: 12px;
+    }
+    
+    .notification-options span {
+      font-size: 0.8rem;
+    }
+
+    .recovery-fields {
+      gap: 10px;
+    }
+    
+    .recovery-input {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }

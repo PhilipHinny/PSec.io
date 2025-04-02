@@ -48,5 +48,23 @@
     font-weight: 500;
   }
   
-  
-  
+  /* Tablet screens (768px and below) */
+  @media screen and (max-width: 768px) {
+    .table-section h2 {
+      font-size: 16px;
+    }
+
+    .document-table th {
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .document-table td {
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .view-link, .delete-link {
+      font-size: 13px;
+    }
+  }

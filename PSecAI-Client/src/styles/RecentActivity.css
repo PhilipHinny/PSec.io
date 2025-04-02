@@ -35,3 +35,29 @@
     color: #333;
   }
   
+  /* Tablet screens (768px and below) */
+  @media(max-width: 768px) {
+    .activity-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .table-section {
+        margin-bottom: 25px;
+    }
+
+    .table-section h2 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .document-table th {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .document-table td {
+        padding: 5px;
+        font-size: 11px;
+    }
+  }
+

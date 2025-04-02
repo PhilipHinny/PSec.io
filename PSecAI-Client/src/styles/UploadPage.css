@@ -107,3 +107,37 @@
 .file-extension {
     color: #777;
 }
+
+/* Tablet screens (768px and below) */
+@media screen and (max-width: 768px) {
+    .Upload-Wrapper {
+        width: 70%;
+        padding: 15px;
+    }
+
+    .upload-title {
+        font-size: 15px;
+    }
+
+    .upload-title p {
+        font-size: 16px;
+    }
+
+    .Upload-Container {
+        width: 450px;
+        height: 180px;
+    }
+
+    .Upload-Container p {
+        font-size: 14px;
+    }
+
+    .Upload-Buttons {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .file-info {
+        font-size: 16px;
+    }
+}
