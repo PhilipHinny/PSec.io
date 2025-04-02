@@ -33,16 +33,16 @@ const ReportTab = () => {
             <p className='container-heading' onClick={handleTabClick}>Reports</p>
             <div className="container-separater"></div>
             {reports.length > 0 ? (
-                    reports.map((report, index) => (
-                        <ReportCard 
-                            key={index} 
-                            title={report.title} 
-                            date={report.date} 
-                        />
-                    ))
-                ) : (
-                    <p>No reports found</p>
-                )}
+                reports.slice(0, 4).map((report, index) => (
+                    <ReportCard 
+                        key={index} 
+                        title={report.title} 
+                        date={report.date} 
+                    />
+                ))
+            ) : (
+                <p>No reports found</p>
+            )}
         </div>
     );
 };
