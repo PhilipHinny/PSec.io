@@ -27,16 +27,16 @@ const ReportTab = () => {
             <p className='container-heading'> Minutes</p>
             <div className="container-separater"></div>
             {reports.length > 0 ? (
-                    reports.map((report, index) => (
-                        <MintuesCard 
-                            key={index} 
-                            title={report.title} 
-                            date={report.date} 
-                        />
-                    ))
-                ) : (
-                    <p>No reports found</p>
-                )}
+                reports.slice(0, 4).map((report, index) => (
+                    <MintuesCard 
+                        key={index} 
+                        title={report.title} 
+                        date={report.date} 
+                    />
+                ))
+            ) : (
+                <p>No reports found</p>
+            )}
         </div>
     );
 };
