@@ -29,34 +29,17 @@
     color: white;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .upload-button {
         width: 60%;
         padding: 8px;
     }
 
     .upload-button p {
-        font-size: 24px;
+        font-size: 16px;
     }
 
     .upload-icon {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-@media (max-width: 400px) {
-    .upload-button {
-        width: 70%;
-        padding: 6px;
-    }
-
-    .upload-button p {
-        font-size: 24px;
-    }
-
-    .upload-icon {
-        width: 30px;
-        height: 30px;
+        font-size: 12px;
     }
 }

@@ -123,3 +123,46 @@
   .close-button:hover {
     color: red;
   }
+
+  /* Tablet screens (768px and below) */
+  @media screen and (max-width: 768px) {
+    .login-container {
+        max-width: 350px;
+        padding: 15px;
+    }
+
+    .login-title {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .form-input {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .login-button {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .loginIcon {
+        padding: 10px;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .loginIcon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .error-message, .success-message {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .close-button {
+        font-size: 22px;
+    }
+  }

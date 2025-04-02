@@ -53,8 +53,10 @@
     border-radius: 5px;
 }
 
-@media (max-width: 800px) {
-    .sidebar-container {
-        display: none;
+/* Tablet screens (768px and below) */
+@media screen and (max-width: 768px) {
+    .chat-sidebar-container {
+      display: none;
     }
 }
+

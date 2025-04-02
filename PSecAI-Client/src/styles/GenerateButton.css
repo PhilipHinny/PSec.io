@@ -32,7 +32,7 @@
     height: 40px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .generate-button {
         width: 60%;
         padding: 8px;
@@ -43,23 +43,7 @@
     }
 
     .starsIcon {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-@media (max-width: 400px) {
-    .generate-button {
-        width: 70%;
-        padding: 6px;
-    }
-
-    .generate-button p {
-        font-size: 24px;
-    }
-
-    .starsIcon {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
     }
 }

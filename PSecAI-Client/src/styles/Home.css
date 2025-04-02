@@ -29,25 +29,13 @@ a{
     text-decoration: none;
     color: #000;
 }
-@media (max-width: 800px) {
+
+@media (max-width: 768px) {
     .hero-heading {
         font-size: 32px;
     }
     .hero-subtext {
         font-size: 24px;
-    }
-    .card-container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-@media (max-width: 400px) {
-    .hero-heading {
-        font-size: 24px;
-    }
-    .hero-subtext {
-        font-size: 20px;
     }
     .card-container {
         flex-direction: column;

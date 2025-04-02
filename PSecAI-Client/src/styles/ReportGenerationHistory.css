@@ -47,3 +47,28 @@
     font-weight: 500;
   }
   
+  /* Tablet screens (768px and below) */
+  @media screen and (max-width: 768px) {
+    .activity-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .table-section h2 {
+        font-size: 16px;
+    }
+
+    .document-table th {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .document-table td {
+        padding: 5px;
+        font-size: 11px;
+    }
+
+    .view-link, .download-link {
+        font-size: 11px;
+    }
+  }
+
