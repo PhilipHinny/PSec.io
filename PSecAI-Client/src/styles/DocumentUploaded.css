@@ -33,21 +33,20 @@
   }
   
   .view-link {
+    border: none;
+    background-color: transparent;
     color: #4caf50;
     text-decoration: none;
     font-weight: 500;
   }
   
   .delete-link {
+    border: none;
+    background-color: transparent;
     color: #f44336;
     text-decoration: none;
     font-weight: 500;
   }
   
-  .download-link {
-    color: #4caf50;
-    text-decoration: none;
-    font-weight: 500;
-  }
   
   
