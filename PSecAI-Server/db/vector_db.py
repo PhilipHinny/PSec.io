@@ -1,46 +1,45 @@
 from pymongo import MongoClient
 from config import DB_CONFIG
-from langchain_community.embeddings import OpenAIEmbeddings
+import datetime
 
-# MongoDB Setup
-client = MongoClient(DB_CONFIG["MONGO_URI"])
-db = client[DB_CONFIG["DB_NAME"]]
-reports_collection = db["Generated_Reports"]
+# Create a connection to MongoDB
+def get_db_connection():
+    client = MongoClient(DB_CONFIG["MONGO_URI"])  
+    db = client[DB_CONFIG["DB_NAME"]]
+    return db
 
 def save_generated_report(user_id, report_text, filename):
-    # Generate embedding
-    embedding = OpenAIEmbeddings().embed_query(report_text)
-    
-    # Prepare the document
-    report_doc = {
-        "user_id": user_id,
-        "filename": filename,
-        "report_text": report_text,
-        "embedding": embedding
-    }
-    
-    # Insert into MongoDB
-    reports_collection.insert_one(report_doc)
-    print(f"Generated report saved for user {user_id}")
+    """
+    Saves a generated report into the Generated_Reports collection.
+    The correct order should be (user_id, report_text, filename).
+    """
+    db = get_db_connection()
+    generated_reports_collection = db["Generated_Reports"]
+
+    try:
+        report_data = {
+            "user_id": user_id,
+            "report_text": report_text,  # Store the actual report text
+            "filename": filename,  # Store the filename separately
+            "created_at": datetime.datetime.utcnow()
+        }
+
+        generated_reports_collection.insert_one(report_data)
+        print(f"Generated report saved correctly for user {user_id}")
+    except Exception as e:
+        print(f"Error saving generated report: {e}")
 
 def retrieve_similar_reports(user_id, top_k=5):
-    user_reports = list(reports_collection.find({"user_id": user_id}))
+    """
+    Retrieves the most recent reports for a given user.
+    """
+    db = get_db_connection()
+    generated_reports_collection = db["Generated_Reports"]
 
-    if not user_reports:
-        return []
+    # Retrieve user's reports sorted by most recent
+    user_reports = list(
+        generated_reports_collection.find({"user_id": user_id}).sort("created_at", -1).limit(top_k)
+    )
 
-    target_embedding = user_reports[0]["embedding"]
-
-    # Calculate Euclidean Distance
-    def euclidean_distance(vec1, vec2):
-        return sum((a - b) ** 2 for a, b in zip(vec1, vec2)) ** 0.5
-
-    # Rank reports
-    scored_reports = []
-    for report in user_reports:
-        distance = euclidean_distance(target_embedding, report["embedding"])
-        scored_reports.append((distance, report["report_text"]))
-
-    # Sort and return top_k
-    scored_reports.sort(key=lambda x: x[0])
-    return [text for _, text in scored_reports[:top_k]]
+    # Return report texts
+    return [report["report_text"] for report in user_reports]

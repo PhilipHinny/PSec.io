@@ -36,6 +36,9 @@ def generate_report(user_id, prompt):
         # Clean up the title by removing any unwanted symbols (like stars, special characters)
         cleaned_report_title = re.sub(r'[^a-zA-Z0-9\s]', '', report_title).strip()
 
+         # **Save the report in the database**
+        save_generated_report(user_id, report, cleaned_report_title)
+
         # Log the report generation activity in Recent_Activity collection
         log_recent_activity(user_id, cleaned_report_title, "Generated", "Successful")  
 

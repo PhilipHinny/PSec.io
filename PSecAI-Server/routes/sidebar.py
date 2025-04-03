@@ -8,7 +8,7 @@ def get_reports():
     """Fetch uploaded reports."""
     try:
         db = get_db_connection()
-        reports_collection = db["Uploaded_Reports"]
+        reports_collection = db["Generated_Reports"]
 
         reports = list(reports_collection.find({}, {"_id": 0, "filename": 1, "created_at": 1}))
 
