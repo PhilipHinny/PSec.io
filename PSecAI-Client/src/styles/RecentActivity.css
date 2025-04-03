@@ -35,6 +35,24 @@
     color: #333;
   }
   
+  .show-more-btn{
+    background-color:transparent;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4caf50;
+  }
+
+  .show-less-btn{
+    background-color:transparent;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #f44336;
+  }
+
   /* Tablet screens (768px and below) */
   @media(max-width: 768px) {
     .activity-section {

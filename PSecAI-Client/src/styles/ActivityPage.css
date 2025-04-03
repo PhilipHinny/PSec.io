@@ -46,7 +46,7 @@
 }
 
 .chat-content {
-    max-height: 70vh; 
+    max-height: 100vh; 
     overflow-y: auto; 
     overflow-x: hidden; 
     padding: 10px;
@@ -171,7 +171,6 @@
     transform: scale(1.05);
 }
 
-/* Style for formatted AI response sections */
 .chat-section-title {
     font-weight: bold;
     font-size: 18px;
@@ -219,26 +218,6 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Media query for smaller screens */
-@media (max-width: 800px) {
-    .sidebar-container {
-        display: none;
-    }
-
-    .chat-body {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .app-header {
-        left: 0;
-        width: 97%;
-    }
-
-    .chat-body {
-        padding: 60px;
-    }
-}
 
 /* Tablet screens (768px and below) */
 @media screen and (max-width: 768px) {
