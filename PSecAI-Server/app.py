@@ -8,6 +8,7 @@ from routes.RecentActivity import activity_bp
 from routes.Report_Stats import stats_bp
 from routes.ReportGenerationHistory import Generate_bp
 from routes.Downloads import Download_bp
+from routes.DashboardUpload import Dashboardupload_bp
 
 app = Flask(__name__)
 
@@ -23,6 +24,7 @@ app.register_blueprint(activity_bp, name='recent_activity')
 app.register_blueprint(stats_bp, name='report_stats')  
 app.register_blueprint(Generate_bp, name='generate_history')
 app.register_blueprint(Download_bp, name='download_report')
+app.register_blueprint(Dashboardupload_bp, name='Dashboard_Upload_report')
 
 if __name__ == "__main__":
     app.run(debug=True)

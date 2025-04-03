@@ -11,7 +11,7 @@ function DocumentUploaded() {
   // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch("http://localhost:5000/reports");
+      const response = await fetch("http://localhost:5000/Dashboardupload");
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
@@ -31,7 +31,7 @@ function DocumentUploaded() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/reports/${filename}`, {
+      const response = await fetch(`http://127.0.0.1:5000/Dashboardupload/${filename}`, {
         method: "DELETE",
       });
 
