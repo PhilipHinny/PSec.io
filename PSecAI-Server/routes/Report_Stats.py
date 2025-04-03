@@ -11,20 +11,17 @@ def get_report_stats():
     try:
         db = get_db_connection()
         reports_collection = db["Uploaded_Reports"]
+        Generated_collection = db["Generated_Reports"]
         
         # Count the number of uploaded reports
-        uploaded_count = reports_collection.count_documents({})  # Counts all documents in the collection
-        
-        # Assuming you want to fetch the count for generated and downloaded reports, 
-        # you'd need to filter based on status or other attributes, for example:
-        generated_count = reports_collection.count_documents({"status": "Generated"})
-        downloaded_count = reports_collection.count_documents({"status": "Downloaded"})
+        uploaded_count = reports_collection.count_documents({}) 
+        generated_count = Generated_collection.count_documents({})
         
         # Return the counts in a JSON response
         return jsonify({
             "uploaded_count": uploaded_count,
-            "generated_count": generated_count,
-            "downloaded_count": downloaded_count
+            "generated_count": generated_count
+
         }), 200
 
     except Exception as e:

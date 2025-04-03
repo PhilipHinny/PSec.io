@@ -36,7 +36,6 @@ const Dashboard = ({ user, onLogout }) => {
           setStats({
             uploadedCount: data.uploaded_count,
             generatedCount: data.generated_count,
-            downloadedCount: data.downloaded_count
           });
         } else {
           console.error("Error fetching report stats:", data.error);
@@ -90,8 +89,7 @@ const Dashboard = ({ user, onLogout }) => {
           {/* Stats Cards */}
           <div className="stats-container">
             <StatCard title="Reports Uploaded" count={stats.uploadedCount} label="Documents" colorClass="green-count" />
-            <StatCard title="Reports Generated" count={stats.uploadedCount} label="Documents" colorClass="blue-count" />
-            <StatCard title="Reports Downloaded" count={stats.uploadedCount} label="Documents" colorClass="green-count" />
+            <StatCard title="Reports Generated" count={stats.generatedCount} label="Documents" colorClass="blue-count" />
           </div>
 
           {/* Recent Activity */}
