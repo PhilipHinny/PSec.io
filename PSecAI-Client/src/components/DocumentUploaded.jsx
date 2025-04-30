@@ -31,7 +31,7 @@ function DocumentUploaded() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/Dashboardupload/${filename}`, {
+      const response = await fetch(`http://192.168.0.105:5000/Dashboardupload/${filename}`, {
         method: "DELETE",
       });
 
