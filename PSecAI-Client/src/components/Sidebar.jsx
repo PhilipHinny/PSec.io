@@ -4,14 +4,16 @@ import ReportCard from "../components/ReportCard";
 import "../styles/Sidebar.css";
 import axios from "axios"; 
 
-const Sidebar = () => {
+const Sidebar = ({user}) => {
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
+        if (!user?.uid) return; 
+
         // Fetch reports from the backend
         const fetchReports = async () => {
             try {
-                const response = await axios.get("http://192.168.0.105:5000/reports");
+                const response = await axios.get(`http://192.168.0.105:5000/reports?user_id=${user.uid}`);
                 setReports(response.data.reports || []);
             } catch (error) {
                 console.error("Error fetching reports:", error);
@@ -19,7 +21,7 @@ const Sidebar = () => {
         };
 
         fetchReports();
-    }, []);
+    }, [user]);
 
     return (
         <div className="chat-sidebar-container">

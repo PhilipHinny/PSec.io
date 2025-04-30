@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import '../styles/DocumentUploaded.css'; 
 
-function DocumentUploaded() {
+function DocumentUploaded({user}) {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    fetchReports();
-  }, []);
+  if (!user?.uid) return; 
 
-  // Fetch reports from backend API
+    // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch("http://192.168.0.105:5000/Dashboardupload");
+      const response = await fetch(`http://192.168.0.105:5000/Dashboardupload?user_id=${user.uid}`);
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
   };
+    fetchReports();
+  }, [user]);
+  
+
 
   // Handle View Report
   const handleView = (filename) => {

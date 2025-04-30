@@ -5,20 +5,16 @@ import axios from "axios";
 import '../styles/ReportTab.css';
 
 
-const ReportTab = () => {
+const ReportTab = ({ user }) => {
     const navigate = useNavigate();
-
-    const handleTabClick = () => {
-        navigate('/activitypage');
-    };
-
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
-        // Fetch reports from the backend
+        if (!user?.uid) return;
+
         const fetchReports = async () => {
             try {
-                const response = await axios.get("http://192.168.0.105:5000/reports");
+                const response = await axios.get(`http://192.168.0.105:5000/reports?user_id=${user.uid}`);
                 setReports(response.data.reports || []);
             } catch (error) {
                 console.error("Error fetching reports:", error);
@@ -26,7 +22,11 @@ const ReportTab = () => {
         };
 
         fetchReports();
-    }, []);
+    }, [user]);
+
+    const handleTabClick = () => {
+        navigate('/activitypage');
+    };
 
     return (
         <div className='Report-container'>
@@ -46,5 +46,6 @@ const ReportTab = () => {
         </div>
     );
 };
+
 
 export default ReportTab;

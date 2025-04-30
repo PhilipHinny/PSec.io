@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ReportGenerationHistory.css";
 
-const ReportGenerationHistory = () => {
+const ReportGenerationHistory = ({ user }) => {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.0.105:5000/generated_reports")
-      .then((response) => response.json())
-      .then((data) => {
+    if (!user?.uid) return;
+
+    const fetchReports = async () => {
+      try {
+        const response = await fetch(`http://192.168.0.105:5000/generated_reports?user_id=${user.uid}`);
+        const data = await response.json();
         console.log("Fetched reports:", data);
         setReports(data.generated_reports);
-      })
-      .catch((error) => console.error("Error fetching generated reports:", error));
-  }, []);
+      } catch (error) {
+        console.error("Error fetching generated reports:", error);
+      }
+    };
 
-  // Function to handle the download button click
+    fetchReports();
+  }, [user]);
+
   const handleDownload = async (filename) => {
     const confirmDownload = window.confirm(`Are you sure you want to download ${filename}?`);
     if (!confirmDownload) return;
-  
+
     try {
       const response = await fetch(`http://192.168.0.105:5000/download_report/${encodeURIComponent(filename)}`, {
         method: "GET",
       });
-  
+
       if (response.ok) {
         const blob = await response.blob();
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = filename; // Suggested filename for the download
+        link.download = filename;
         link.click();
         alert("Download started!");
       } else {
@@ -38,8 +44,7 @@ const ReportGenerationHistory = () => {
       console.error("Error downloading report:", error);
     }
   };
-  
-  
+
   return (
     <div className="activity-section">
       <div className="table-section">

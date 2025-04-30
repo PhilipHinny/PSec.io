@@ -40,7 +40,7 @@ const Home = ({ user }) => {
 
             <div className="card-container">
                 <MinuteTab />
-                <ReportTab />
+                <ReportTab user={user}/>
                 <InsightTab />
             </div>
 
