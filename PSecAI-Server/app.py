@@ -27,5 +27,5 @@ app.register_blueprint(Download_bp, name='download_report')
 app.register_blueprint(Dashboardupload_bp, name='Dashboard_Upload_report')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="100.92.188.87", port=5000)
 
