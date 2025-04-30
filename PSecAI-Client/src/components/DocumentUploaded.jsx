@@ -10,7 +10,7 @@ function DocumentUploaded({user}) {
     // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch(`http://100.92.188.87:5000/Dashboardupload?user_id=${user.uid}`);
+      const response = await fetch(`http://100.80.125.69:5000/Dashboardupload?user_id=${user.uid}`);
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
