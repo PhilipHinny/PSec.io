@@ -37,7 +37,7 @@ const ActivityPage = ({ user, onLoginSuccess, onLogout }) => {
         setLoading(true);
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/generate_report", {
+            const response = await fetch("http://192.168.0.105:5000/generate_report", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -5,7 +5,7 @@ const ReportGenerationHistory = () => {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/generated_reports")
+    fetch("http://192.168.0.105:5000/generated_reports")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched reports:", data);
@@ -20,7 +20,7 @@ const ReportGenerationHistory = () => {
     if (!confirmDownload) return;
   
     try {
-      const response = await fetch(`http://127.0.0.1:5000/download_report/${encodeURIComponent(filename)}`, {
+      const response = await fetch(`http://192.168.0.105:5000/download_report/${encodeURIComponent(filename)}`, {
         method: "GET",
       });
   

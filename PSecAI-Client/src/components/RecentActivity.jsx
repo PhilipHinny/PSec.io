@@ -6,7 +6,7 @@ const RecentActivity = () => {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/recent-activity")
+    fetch("http://192.168.0.105:5000/recent-activity")
       .then((response) => response.json())
       .then((data) => setActivities(data.recent_activity))
       .catch((error) => console.error("Error fetching recent activity:", error));

@@ -11,7 +11,7 @@ function DocumentUploaded() {
   // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch("http://localhost:5000/Dashboardupload");
+      const response = await fetch("http://192.168.0.105:5000/Dashboardupload");
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
