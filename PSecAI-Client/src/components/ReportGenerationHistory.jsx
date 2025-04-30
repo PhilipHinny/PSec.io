@@ -9,7 +9,7 @@ const ReportGenerationHistory = ({ user }) => {
 
     const fetchReports = async () => {
       try {
-        const response = await fetch(`http://100.80.125.69:5000/generated_reports?user_id=${user.uid}`);
+        const response = await fetch(`http://192.168.0.105:5000/generated_reports?user_id=${user.uid}`);
         const data = await response.json();
         console.log("Fetched reports:", data);
         setReports(data.generated_reports);
