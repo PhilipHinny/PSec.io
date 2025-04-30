@@ -8,7 +8,7 @@ const RecentActivity = ({ user }) => {
   useEffect(() => {
     if (!user?.uid) return;
 
-    fetch(`http://192.168.0.105:5000/recent-activity??user_id=${user.uid}`)
+    fetch(`http://100.80.125.69:5000/recent-activity??user_id=${user.uid}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.recent_activity) {
