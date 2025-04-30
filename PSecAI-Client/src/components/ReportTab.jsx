@@ -14,7 +14,7 @@ const ReportTab = ({ user }) => {
 
         const fetchReports = async () => {
             try {
-                const response = await axios.get(`http://100.80.125.69:5000/reports?user_id=${user.uid}`);
+                const response = await axios.get(`http://100.92.188.87:5000/reports?user_id=${user.uid}`);
                 setReports(response.data.reports || []);
             } catch (error) {
                 console.error("Error fetching reports:", error);
