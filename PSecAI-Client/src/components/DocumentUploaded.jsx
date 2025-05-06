@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../styles/DocumentUploaded.css'; 
 
-function DocumentUploaded({user, onLogout}) {
+function DocumentUploaded({user}) {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function DocumentUploaded({user, onLogout}) {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://192.168.0.115:5000/Dashboardupload/${filename}`, {
+      const response = await fetch(`http://192.168.0.115:5000/Deleteupload?filename=${encodeURIComponent(filename)}&user_id=${user.uid}`, {
         method: "DELETE",
       });
 

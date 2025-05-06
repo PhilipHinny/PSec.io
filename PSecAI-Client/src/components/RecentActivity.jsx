@@ -8,7 +8,6 @@ const RecentActivity = ({ user, onLogout }) => {
   useEffect(() => {
     if (!user?.uid) return;
   
-  
     const fetchActivities = async () => {
       try {
         const response = await fetch(`http://192.168.0.115:5000/recent-activity?user_id=${user.uid}`);
@@ -25,6 +24,7 @@ const RecentActivity = ({ user, onLogout }) => {
   
     fetchActivities();
   }, [user]);
+
   
 
   const displayedActivities = showAll ? activities : activities.slice(0, 4);
@@ -46,7 +46,7 @@ const RecentActivity = ({ user, onLogout }) => {
             {displayedActivities.length > 0 ? (
               displayedActivities.map((activity, index) => (
                 <tr key={index}>
-                  <td>{new Date(activity.date_time).toLocaleString()}</td>
+                  <td>{activity.date_time}</td>
                   <td>{activity.document_name}</td>
                   <td>{activity.action}</td>
                   <td>{activity.status}</td>

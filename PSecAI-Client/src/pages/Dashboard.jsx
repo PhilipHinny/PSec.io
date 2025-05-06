@@ -91,10 +91,10 @@ const Dashboard = ({ user, onLogout }) => {
           </div>
 
           {/* Recent Activity */}
-          <RecentActivity/>
+          <RecentActivity user={user}/>
 
           {/* Report Generation History Table */}
-          <ReportGenerationHistory />
+          <ReportGenerationHistory user={user} />
         </div>
       </div>
     </div>
