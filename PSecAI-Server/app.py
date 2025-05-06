@@ -19,6 +19,7 @@ app = Flask(__name__)
 # Enable CORS globally with specific settings
 CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}}, supports_credentials=True)
 
+
 # Register blueprints with unique names
 app.register_blueprint(generate_bp, name='generate')
 app.register_blueprint(upload_bp, name='upload')
