@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize Stripe with your secret key
-stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+stripe.api_key = os.getenv('pk_test_51RLo67IJlJJgM2f2Rqc6xn9i00oK1OTWc0q7njXherKnlykJCi66GCpySjf76G0ZGGKFOQNF7X1WPTXsllSg6P7300rvWwAOfR')
 
 # Create a Blueprint for Stripe routes
 stripePayment_bp = Blueprint('stripe_payment', __name__)

@@ -6,7 +6,7 @@ import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-
 import "../styles/BillingPage.css";
 
 // Load your Stripe public key
-const stripePromise = loadStripe("your-stripe-public-key-here");
+const stripePromise = loadStripe("pk_test_51RLo67IJlJJgM2f2Rqc6xn9i00oK1OTWc0q7njXherKnlykJCi66GCpySjf76G0ZGGKFOQNF7X1WPTXsllSg6P7300rvWwAOfR");
 
 const BillingPage = ({ user, onLogout }) => {
   const navigate = useNavigate();
