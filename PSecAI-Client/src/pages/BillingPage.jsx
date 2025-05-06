@@ -1,15 +1,73 @@
-import { useEffect } from "react";
-import { FaHome, FaFileAlt, FaCog, FaCreditCard, FaQuestionCircle, FaSignOutAlt,} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaHome, FaFileAlt, FaCog, FaCreditCard, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "../styles/BillingPage.css";
+
+// Load your Stripe public key
+const stripePromise = loadStripe("your-stripe-public-key-here");
 
 const BillingPage = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const defaultProfileImage = "https://www.example.com/default-profile-image.jpg";
+  
+  // State to handle payment processing
+  const [clientSecret, setClientSecret] = useState("");
+  const [currentPlan, setCurrentPlan] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Fetch the client secret for the PaymentIntent from your Flask backend
+    const fetchClientSecret = async () => {
+      const response = await fetch("http://192.168.0.115:5000/create-payment-intent", {  // Updated URL to match Flask route
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setClientSecret(data.clientSecret);  // Set the client secret for Stripe
+    };
+
+    // Fetch the current plan information from the backend
+    const fetchCurrentPlan = async () => {
+      const response = await fetch("http://192.168.0.115:5000/get-current-plan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setCurrentPlan(data);  // Set current plan state
+    };
+
+    fetchClientSecret();
+    fetchCurrentPlan();
   }, []);
+
+  // Function to handle form submission
+  const handleSubmit = async (event, stripe, elements) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) return;  // Ensure Stripe and Elements are loaded
+
+    const paymentElement = elements.getElement(PaymentElement);
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.href,  // Redirect URL after successful payment
+      },
+    });
+
+    if (error) {
+      console.error(error);
+      alert(error.message);  // Show error message if the payment fails
+    } else {
+      alert('Payment successful!');  // Show success message
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -51,11 +109,7 @@ const BillingPage = ({ user, onLogout }) => {
             Upload
           </button>
           <div className="user-icon">
-            <img
-              src={user?.photoURL || defaultProfileImage}
-              alt="Profile"
-              className="profile-img"
-            />
+            <img src={user?.photoURL || defaultProfileImage} alt="Profile" className="profile-img" />
           </div>
         </header>
 
@@ -66,26 +120,30 @@ const BillingPage = ({ user, onLogout }) => {
           {/* Current Plan Information */}
           <div className="section">
             <h2 className="section-title">Current Plan Information</h2>
-            <div className="plan-table-container">
-              <table className="plan-table">
-                <thead>
-                  <tr className="table-header">
-                    <th>Plan</th>
-                    <th>Features</th>
-                    <th>Price</th>
-                    <th>Next Payment Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Basic</td>
-                    <td>Basic report generation and analysis</td>
-                    <td>$5/monthly</td>
-                    <td>27 Mar, 2025</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {currentPlan ? (
+              <div className="plan-table-container">
+                <table className="plan-table">
+                  <thead>
+                    <tr className="table-header">
+                      <th>Plan</th>
+                      <th>Features</th>
+                      <th>Price</th>
+                      <th>Next Payment Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{currentPlan.plan}</td>
+                      <td>{currentPlan.features}</td>
+                      <td>{currentPlan.price}</td>
+                      <td>{currentPlan.next_payment_date}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>Loading your current plan information...</p>
+            )}
           </div>
 
           {/* Payment Methods */}
@@ -103,27 +161,23 @@ const BillingPage = ({ user, onLogout }) => {
               </div>
             </div>
 
-            {/* Card Details */}
-            <div className="card-details">
-              <h3 className="subsection-title">Card Details</h3>
-              <div className="card-form">
-                <input
-                  type="text"
-                  placeholder="Card Number"
-                  className="card-input card-number"
-                />
-                <input
-                  type="text"
-                  placeholder="Expiry Date"
-                  className="card-input expiry-date"
-                />
-                <input
-                  type="text"
-                  placeholder="CVV"
-                  className="card-input cvv"
-                />
-                <button className="update-button">Update Payment Information</button>
-              </div>
+            {/* Stripe Payment Section */}
+            <div className="stripe-section">
+              <h3 className="subsection-title">Pay with Credit/Debit Card</h3>
+              {clientSecret && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <form onSubmit={(e) => handleSubmit(e, useStripe(), useElements())}>
+                    <PaymentElement />
+                    <button
+                      type="submit"
+                      className="update-button"
+                      disabled={!stripe || !clientSecret}
+                    >
+                      Pay Now
+                    </button>
+                  </form>
+                </Elements>
+              )}
             </div>
           </div>
 

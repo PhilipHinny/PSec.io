@@ -1,3 +1,5 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; 
@@ -12,6 +14,9 @@ import Dashboard from './pages/Dashboard';
 import BillingPage from './pages/BillingPage';
 import AccountSettings from './pages/AccountSetting';
 import './styles/App.css';
+
+// Stripe configuration
+const stripePromise = loadStripe("your-publishable-key"); // Replace with your actual Stripe key
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +36,9 @@ function App() {
   return (
     <div className="App-container">
       <Router>
-        <AppContent user={user} setUser={setUser} showLogin={showLogin} setShowLogin={setShowLogin} />
+        <Elements stripe={stripePromise}>
+          <AppContent user={user} setUser={setUser} showLogin={showLogin} setShowLogin={setShowLogin} />
+        </Elements>
       </Router>
     </div>
   );
@@ -99,6 +106,5 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
     </>
   );
 }
-
 
 export default App;

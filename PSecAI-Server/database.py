@@ -52,3 +52,21 @@ def log_recent_activity(user_id, document_name, action, status):
 
     activity_collection.insert_one(activity_data)  # Save log
     print(f"Activity logged: {action} - {document_name} - Status: {status}")
+
+# Function to get the logged-in user's ID (just an example, you'd typically retrieve this from a session or token)
+def get_logged_in_user_id():
+    # You may want to implement actual logic here to fetch the logged-in user, like getting the user from a session or token.
+    return "some_user_id"  # Replace this with actual user fetching logic.
+
+# Function to get the current user plan
+def get_user_plan_from_db(user_id):
+    db = get_db_connection()
+    plans_collection = db["User_Plans"]  # Collection where the user plans are stored
+    
+    # Fetch the user's plan (assuming each user has a single plan stored)
+    user_plan = plans_collection.find_one({"user_id": user_id})
+    
+    if not user_plan:
+        raise Exception("No plan found for the user")
+    
+    return user_plan
