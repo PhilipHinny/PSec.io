@@ -9,11 +9,12 @@ from routes.Report_Stats import stats_bp
 from routes.ReportGenerationHistory import Generate_bp
 from routes.Downloads import Download_bp
 from routes.DashboardUpload import Dashboardupload_bp
+from routes.deleteDocument import Deleteupload_bp
 
 app = Flask(__name__)
 
 # Enable CORS globally
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # Register blueprints with unique names
 app.register_blueprint(generate_bp, name='generate')
@@ -25,6 +26,7 @@ app.register_blueprint(stats_bp, name='report_stats')
 app.register_blueprint(Generate_bp, name='generate_history')
 app.register_blueprint(Download_bp, name='download_report')
 app.register_blueprint(Dashboardupload_bp, name='Dashboard_Upload_report')
+app.register_blueprint(Deleteupload_bp, name='Delete_Upload_report')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

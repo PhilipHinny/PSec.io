@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ReportGenerationHistory.css";
 
-const ReportGenerationHistory = ({ user }) => {
+const ReportGenerationHistory = ({ user, onLogout }) => {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const ReportGenerationHistory = ({ user }) => {
 
     const fetchReports = async () => {
       try {
-        const response = await fetch(`http://192.168.0.105:5000/generated_reports?user_id=${user.uid}`);
+        const response = await fetch(`http://192.168.0.115:5000/generated_reports?user_id=${user.uid}`);
         const data = await response.json();
         console.log("Fetched reports:", data);
         setReports(data.generated_reports);
@@ -26,7 +26,7 @@ const ReportGenerationHistory = ({ user }) => {
     if (!confirmDownload) return;
 
     try {
-      const response = await fetch(`http://192.168.0.105:5000/download_report/${encodeURIComponent(filename)}`, {
+      const response = await fetch(`http://192.168.0.115:5000/download_report/${encodeURIComponent(filename)}`, {
         method: "GET",
       });
 

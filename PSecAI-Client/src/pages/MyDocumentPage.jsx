@@ -84,10 +84,10 @@ const DocumentDashboard = ({ user, onLogout }) => {
           </div>
 
           {/* Document Uploaded Table */}
-          <DocumentUploaded />
+          <DocumentUploaded user={user} />
 
           {/* Report Generation History Table */}
-          <ReportGenerationHistory />
+          <ReportGenerationHistory user={user} />
         </div>
       </div>
     </div>

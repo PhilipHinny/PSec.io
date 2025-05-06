@@ -31,7 +31,7 @@ const UploadPage = ({ user }) => {
     formData.append("user_id", userId); // Pass the Firebase user ID
 
     try {
-      const response = await fetch("http://192.168.0.105:5000/upload_report", {
+      const response = await fetch("http://192.168.0.115:5000/upload_report", {
         method: "POST",
         body: formData
       });

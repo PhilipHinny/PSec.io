@@ -28,7 +28,7 @@ const Dashboard = ({ user, onLogout }) => {
 
     const fetchReportStats = async () => {
       try {
-        const response = await fetch(`http://192.168.0.105:5000/report-stats?user_id=${user.uid}`);
+        const response = await fetch(`http://192.168.0.115:5000/report-stats?user_id=${user.uid}`);
         const data = await response.json();
         if (response.ok) {
           setStats({

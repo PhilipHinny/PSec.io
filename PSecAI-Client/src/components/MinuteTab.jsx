@@ -11,7 +11,7 @@ const ReportTab = () => {
         // Fetch reports from the backend
         const fetchReports = async () => {
             try {
-                const response = await axios.get("http://192.168.0.105:5000/reports");
+                const response = await axios.get("http://192.168.0.115:5000/reports");
                 setReports(response.data.reports || []);
             } catch (error) {
                 console.error("Error fetching reports:", error);
