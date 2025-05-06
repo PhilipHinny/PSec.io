@@ -10,7 +10,7 @@ from routes.ReportGenerationHistory import Generate_bp
 from routes.Downloads import Download_bp
 from routes.DashboardUpload import Dashboardupload_bp
 from routes.deleteDocument import Deleteupload_bp
-import routes.stripepayement as stripePayment_bp
+from routes.stripepayement import stripePayment_bp
 from routes.currentPlan import plan_bp
 
 
@@ -30,7 +30,7 @@ app.register_blueprint(Generate_bp, name='generate_history')
 app.register_blueprint(Download_bp, name='download_report')
 app.register_blueprint(Dashboardupload_bp, name='Dashboard_Upload_report')
 app.register_blueprint(Deleteupload_bp, name='Delete_Upload_report')
-app.register_blueprint(stripePayment_bp, name='stripe_payment')
+app.register_blueprint(stripePayment_bp, url_prefix='/stripe')
 app.register_blueprint(plan_bp, name='current_plan')
 
 if __name__ == "__main__":
