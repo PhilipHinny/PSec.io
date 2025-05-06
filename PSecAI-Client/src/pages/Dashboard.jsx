@@ -28,7 +28,7 @@ const Dashboard = ({ user, onLogout }) => {
 
     const fetchReportStats = async () => {
       try {
-        const response = await fetch(`http://192.168.0.105:5000/report-stats?user_id=${user.uid}`);
+        const response = await fetch(`http://192.168.0.115:5000/report-stats?user_id=${user.uid}`);
         const data = await response.json();
         if (response.ok) {
           setStats({
@@ -91,10 +91,10 @@ const Dashboard = ({ user, onLogout }) => {
           </div>
 
           {/* Recent Activity */}
-          <RecentActivity user={user}/>
+          <RecentActivity/>
 
           {/* Report Generation History Table */}
-          <ReportGenerationHistory user={user} />
+          <ReportGenerationHistory />
         </div>
       </div>
     </div>

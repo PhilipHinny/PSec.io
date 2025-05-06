@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/RecentActivity.css';
 
-const RecentActivity = ({ user }) => {
+const RecentActivity = ({ user, onLogout }) => {
   const [activities, setActivities] = useState([]);
   const [showAll, setShowAll] = useState(false);
   
   useEffect(() => {
     if (!user?.uid) return;
-
-    fetch(`http://192.168.0.105:5000/recent-activity??user_id=${user.uid}`)
-      .then((response) => response.json())
-      .then((data) => {
+  
+  
+    const fetchActivities = async () => {
+      try {
+        const response = await fetch(`http://192.168.0.115:5000/recent-activity?user_id=${user.uid}`);
+        const data = await response.json();
         if (data.recent_activity) {
           setActivities(data.recent_activity);
         } else {
           console.error("Unexpected response:", data);
         }
-      })
-      .catch((error) => console.error("Error fetching recent activity:", error));
+      } catch (error) {
+        console.error("Error fetching recent activity:", error);
+      }
+    };
+  
+    fetchActivities();
   }, [user]);
+  
 
   const displayedActivities = showAll ? activities : activities.slice(0, 4);
 

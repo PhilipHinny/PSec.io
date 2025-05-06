@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../styles/DocumentUploaded.css'; 
 
-function DocumentUploaded({user}) {
+function DocumentUploaded({user, onLogout}) {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ function DocumentUploaded({user}) {
     // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch(`http://192.168.0.105:5000/Dashboardupload?user_id=${user.uid}`);
+      const response = await fetch(`http://192.168.0.115:5000/Dashboardupload?user_id=${user.uid}`);
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
@@ -18,7 +18,7 @@ function DocumentUploaded({user}) {
     }
   };
     fetchReports();
-  }, [user]);
+  }, [user?.uid]);
   
 
 
@@ -34,7 +34,7 @@ function DocumentUploaded({user}) {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://192.168.0.105:5000/Dashboardupload/${filename}`, {
+      const response = await fetch(`http://192.168.0.115:5000/Dashboardupload/${filename}`, {
         method: "DELETE",
       });
 
