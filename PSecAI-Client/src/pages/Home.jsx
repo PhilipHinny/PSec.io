@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
 import ReportTab from '../components/ReportTab';
 import MinuteTab from '../components/MinuteTab';
@@ -6,41 +6,40 @@ import InsightTab from '../components/InsightTab';
 import GenerateButton from '../components/GenerateButton';
 
 const Home = ({ user }) => {
-
-    // Function to display a greeting based on the time of day
-    const getGreeting = () => {
-        const currentHour = new Date().getHours();
-        if (currentHour < 12) {
-            return 'Good Morning';
-        } else if (currentHour < 18) {
-            return 'Good Afternoon';
-        } else {
-            return 'Good Evening';
-        }
-    };
-
-    // Get the user's profile name or fall back to their email if not available
-    const getUserName = () => {
-        if (user) {
-            return user.displayName || user.email.split('@')[0];  
-        }
-        return 'Guest'; 
-    };
+    const [userName, setUserName] = useState('Guest');
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    // Update userName when user changes
+    useEffect(() => {
+        if (user) {
+            if (user.displayName) setUserName(user.displayName);
+            else if (user.email) setUserName(user.email.split('@')[0]);
+            else setUserName('Guest');
+        } else {
+            setUserName('Guest');
+        }
+    }, [user]);
+
+    const getGreeting = () => {
+        const currentHour = new Date().getHours();
+        if (currentHour < 12) return 'Good Morning';
+        else if (currentHour < 18) return 'Good Afternoon';
+        else return 'Good Evening';
+    };
+
     return (
         <div>
             <div className="hero-section">
-                <h1 className='hero-heading'>{getGreeting()}, {getUserName()}</h1>  
+                <h1 className='hero-heading'>{getGreeting()}, {userName}</h1>
                 <p className='hero-subtext'>How can I assist you today?</p>
             </div>
 
             <div className="card-container">
                 <MinuteTab />
-                <ReportTab user={user}/>
+                <ReportTab user={user} />
                 <InsightTab />
             </div>
 

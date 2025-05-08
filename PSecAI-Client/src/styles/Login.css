@@ -40,23 +40,23 @@
   .login-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   
   .form-input {
     width: 90%;
     padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
     border-radius: 50px;
     font-size: 14px;
   }
   
   .login-button {
+    margin-bottom: 10px;
     width: 100%;
     padding: 12px;
-    background: #ffd700;
-    color: #000;
+    background: #333;
+    color: #fff;
     font-weight: 600;
     border: none;
     border-radius: 50px;
@@ -77,7 +77,7 @@
     border: 2px solid #ccc;
     border-radius: 50px;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     cursor: pointer;
     transition: background 0.3s;
   }
@@ -124,6 +124,48 @@
     color: red;
   }
 
+  .Or-label{
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .account-type-select{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .account-type-button{
+    position: relative;
+    padding: 10px;
+    width: 100%;
+    border-radius: 25px;
+    background-color: #e0e0e0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    display: block;
+    text-align: center;
+  }
+
+  .account-type-button input[type="radio"] {
+    display: none;
+  }
+  
+  .account-type-button.active {
+    background-color: #333;
+    color: white;
+  }
+
+  .signup-button{
+    font-size: 16px;
+    font-weight: bold;
+    color: #2563eb;
+    border: 0;
+    background-color: transparent;
+  }
   /* Tablet screens (768px and below) */
   @media screen and (max-width: 768px) {
     .login-container {

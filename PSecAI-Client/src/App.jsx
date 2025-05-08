@@ -2,7 +2,9 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; 
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 import Home from './pages/Home';
 import ActivityPage from './pages/ActivityPage';
 import Login from './components/Login';
@@ -13,6 +15,7 @@ import MyDocumentPage from './pages/MyDocumentPage';
 import Dashboard from './pages/Dashboard';
 import BillingPage from './pages/BillingPage';
 import AccountSettings from './pages/AccountSetting';
+
 import './styles/App.css';
 
 // Stripe configuration
@@ -24,9 +27,32 @@ function App() {
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const db = getFirestore();
+
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        setUser(currentUser);
+        try {
+          const userDocRef = doc(db, "users", currentUser.uid);
+          const userSnapshot = await getDoc(userDocRef);
+
+          if (userSnapshot.exists()) {
+            const userData = { uid: currentUser.uid, ...userSnapshot.data() };
+            setUser(userData);
+
+            // Store account type in localStorage
+            if (userData.accountType) {
+              localStorage.setItem("accountType", userData.accountType);
+            }
+          } else {
+            console.log("User document does not exist.");
+            setUser(currentUser); // fallback
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        setUser(null);
+        localStorage.removeItem("accountType");
       }
     });
 
@@ -51,16 +77,22 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
   const handleLoginSuccess = (userData) => {
     setUser(userData);
     setShowLogin(false);
+
+    // Store account type in localStorage
+    if (userData && userData.accountType) {
+      localStorage.setItem("accountType", userData.accountType);
+    }
   };
 
   const handleLogout = async () => {
     const auth = getAuth();
     try {
-      await signOut(auth); 
-      setUser(null); 
-      navigate("/"); 
+      await signOut(auth);
+      setUser(null);
+      localStorage.removeItem("accountType");
+      navigate("/");
     } catch (error) {
-      console.error("Logout error:", error); 
+      console.error("Logout error:", error);
     }
   };
 
@@ -71,10 +103,10 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
   const handleLogoutAllDevices = async () => {
     const auth = getAuth();
     try {
-      // Force refresh token to revoke the previous session
-      await auth.currentUser?.getIdToken(true); 
-      await signOut(auth); 
+      await auth.currentUser?.getIdToken(true);
+      await signOut(auth);
       setUser(null);
+      localStorage.removeItem("accountType");
       navigate("/");
     } catch (error) {
       console.error("Error logging out from all devices:", error);

@@ -42,6 +42,9 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
 
     const defaultProfileImage = "https://www.example.com/default-profile-image.jpg";
 
+    // ✅ Get accountType from localStorage
+    const accountType = localStorage.getItem("accountType");
+
     return (
         <div className="header-container">
             <ul>
@@ -70,7 +73,15 @@ const Header = ({ user, onLoginSuccess, onLogout }) => {
                         )}
                         {showDropdown && user && (
                             <div className="dropdown-menu">
-                                <button onClick={() => navigate('/Dashboard')}><FaTachometerAlt /> Dashboard</button>
+                                <button onClick={() => {
+                                    if (accountType === "individual") {
+                                        navigate('/Dashboard');
+                                    } else if (accountType === "organization") {
+                                        navigate('/CompanyDashboard');
+                                    } 
+                                }}>
+                                    <FaTachometerAlt /> Dashboard
+                                </button>
                                 <button onClick={() => navigate('/Policypage')}><FaFileAlt /> Policy</button>
                                 <button onClick={onLogout}><FaSignOutAlt /> Logout</button>
                             </div>
