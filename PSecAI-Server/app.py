@@ -26,7 +26,12 @@ paystack_secret_key = os.getenv('PAYSTACK_SECRET_KEY')
 paystack_public_key = os.getenv('PAYSTACK_PUBLIC_KEY')
 
 # Enable CORS globally with specific settings
-CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "DELETE", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}}, supports_credentials=True)
+CORS(app, 
+     origins=["https://psec-ai.web.app", "http://psec-ai.web.app", "http://localhost:5173", "http://localhost:3000"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+     allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
+     supports_credentials=True,
+     expose_headers=["Content-Type", "Authorization"])
 
 # Register blueprints with unique names
 app.register_blueprint(generate_bp, name='generate')
