@@ -4,6 +4,7 @@ import "../styles/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import RecentActivity from "../components/RecentActivity";
 import ReportGenerationHistory from "../components/ReportGenerationHistory";
+import API_BASE_URL from '../apiConfig';
 
 const Dashboard = ({ user, onLogout }) => {
   const [stats, setStats] = useState({
@@ -28,7 +29,7 @@ const Dashboard = ({ user, onLogout }) => {
 
     const fetchReportStats = async () => {
       try {
-        const response = await fetch(`http://192.168.0.115:5000/report-stats?user_id=${user.uid}`);
+        const response = await fetch(`${API_BASE_URL}/report-stats?user_id=${user.uid}`);
         const data = await response.json();
         if (response.ok) {
           setStats({

@@ -17,13 +17,14 @@ def get_reports():
         # Only fetch reports that belong to the given user_id
         reports = list(reports_collection.find(
             {"user_id": user_id},
-            {"_id": 0, "filename": 1, "created_at": 1}
+            {"_id": 0, "filename": 1, "created_at": 1, "report_text": 1}
         ))
 
         formatted_reports = [
             {
                 "title": report["filename"],
                 "date": report["created_at"].strftime("%b %d, %Y"),
+                "preview": (report.get("report_text") or "")[:100]
             }
             for report in reports
         ]

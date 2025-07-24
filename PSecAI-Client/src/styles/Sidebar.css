@@ -1,62 +1,146 @@
 .chat-sidebar-container {
-    background-color: #F7F7F8;
-    padding: 15px;
-    width: 270px;
+    background-color: #171717;
+    padding: 0;
+    width: 100%;
     height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e5e7eb;
+    color: white;
 }
 
 .chat-sidebar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    height: 40px;
+    padding: 20px 16px;
+    border-bottom: 1px solid #2d2d2d;
+    background-color: #171717;
 }
 
 .chat-sidebar-header h2 {
-    font-family: 'Calibri', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
 }
 
 .sidebar-search-icon {
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    color: #8e8ea0;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 
-.search-icon:hover {
-    transform: scale(1.15);
+.sidebar-search-icon:hover {
+    background-color: #2d2d2d;
+    color: #ffffff;
 }
 
 .report-list {
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    padding: 8px;
     overflow-y: auto;
     flex-grow: 1;
+    gap: 4px;
+    flex: 1;
 }
 
 .report-list::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
+}
+
+.report-list::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .report-list::-webkit-scrollbar-thumb {
-    background-color: #999;
-    border-radius: 5px;
+    background-color: #4a4a4a;
+    border-radius: 2px;
+}
+
+.report-list::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+}
+
+.report-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: none;
+    background: none;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.report-item:hover {
+    background-color: #2d2d2d;
+}
+
+.report-item.active {
+    background-color: #10a37f;
+    border: 1px solid #dbeafe;
+}
+
+.report-title {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.report-date {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 12px;
+    color: #8e8ea0;
+    margin: 0;
+}
+
+.report-preview {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 12px;
+    color: #8e8ea0;
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.no-reports {
+    padding: 24px 12px;
+    text-align: center;
+    color: #8e8ea0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 14px;
 }
 
 /* Tablet screens (768px and below) */
 @media screen and (max-width: 768px) {
     .chat-sidebar-container {
-      display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .chat-sidebar-container.open {
+        transform: translateX(0);
     }
 }
-

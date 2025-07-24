@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import '../styles/UploadPage.css';
+import API_BASE_URL from '../apiConfig';
 
 const UploadPage = ({ user }) => {
   const [files, setFiles] = useState([]);
@@ -31,7 +32,7 @@ const UploadPage = ({ user }) => {
     formData.append("user_id", userId); // Pass the Firebase user ID
 
     try {
-      const response = await fetch("http://192.168.0.115:5000/upload_report", {
+      const response = await fetch(`${API_BASE_URL}/upload_report`, {
         method: "POST",
         body: formData
       });

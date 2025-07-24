@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-
 import Home from './pages/Home';
 import ActivityPage from './pages/ActivityPage';
 import Login from './components/Login';
@@ -114,7 +113,7 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
   };
 
   // Hide Header on specific pages
-  const hideHeaderPages = ["/MyDocumentPage", "/Dashboard", "/BillingPage", "/AccountSetting"];
+  const hideHeaderPages = ["/MyDocumentPage", "/Dashboard", "/BillingPage", "/AccountSetting", "/activitypage"];
   const shouldShowHeader = !hideHeaderPages.includes(location.pathname);
 
   return (

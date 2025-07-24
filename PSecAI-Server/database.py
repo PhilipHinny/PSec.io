@@ -21,6 +21,11 @@ def save_report_metadata(user_id, filename, extracted_text=None):
             "extracted_text": extracted_text,  # Optional field
             "created_at": datetime.datetime.utcnow()
         }
+        # Debug print for extraction
+        if extracted_text:
+            print(f"[DEBUG] Extracted text for {filename} (first 500 chars):\n{extracted_text[:500]}")
+        else:
+            print(f"[DEBUG] No extracted text for {filename}!")
         
         # Insert into MongoDB
         reports_collection.insert_one(report_data)
@@ -70,3 +75,12 @@ def get_user_plan_from_db(user_id):
         raise Exception("No plan found for the user")
     
     return user_plan
+
+def get_uploaded_report_texts(user_id, top_k=5):
+    db = get_db_connection()
+    reports_collection = db["Uploaded_Reports"]
+    user_reports = list(
+        reports_collection.find({"user_id": user_id}).sort("created_at", -1).limit(top_k)
+    )
+    # Return extracted text (if available)
+    return [report.get("extracted_text", "") for report in user_reports if report.get("extracted_text")]

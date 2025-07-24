@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/RecentActivity.css';
+import API_BASE_URL from '../apiConfig';
 
 const RecentActivity = ({ user, onLogout }) => {
   const [activities, setActivities] = useState([]);
@@ -10,7 +11,7 @@ const RecentActivity = ({ user, onLogout }) => {
   
     const fetchActivities = async () => {
       try {
-        const response = await fetch(`http://192.168.0.115:5000/recent-activity?user_id=${user.uid}`);
+        const response = await fetch(`${API_BASE_URL}/recent-activity?user_id=${user.uid}`);
         const data = await response.json();
         if (data.recent_activity) {
           setActivities(data.recent_activity);

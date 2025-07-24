@@ -34,9 +34,12 @@ def upload_report():
 
         # Save metadata and extracted text to MongoDB
         save_report_metadata(user_id, file.filename, extracted_text)
-
+        from database import log_recent_activity
+        log_recent_activity(user_id, file.filename, "Uploaded", "Successful")
         return jsonify({"message": "Report uploaded and saved successfully!"}), 200
 
     except Exception as e:
         print(f"Error during file upload: {e}")
+        from database import log_recent_activity
+        log_recent_activity(user_id, file.filename, "Uploaded", "Failed")
         return jsonify({"error": "Failed to process the file."}), 500

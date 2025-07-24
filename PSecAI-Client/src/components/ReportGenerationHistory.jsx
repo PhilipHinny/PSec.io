@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ReportGenerationHistory.css";
+import API_BASE_URL from '../apiConfig';
 
 const ReportGenerationHistory = ({ user, onLogout }) => {
   const [reports, setReports] = useState([]);
@@ -9,7 +10,7 @@ const ReportGenerationHistory = ({ user, onLogout }) => {
 
     const fetchReports = async () => {
       try {
-        const response = await fetch(`http://192.168.0.115:5000/generated_reports?user_id=${user.uid}`);
+        const response = await fetch(`${API_BASE_URL}/generated_reports?user_id=${user.uid}`);
         const data = await response.json();
         console.log("Fetched reports:", data);
         setReports(data.generated_reports);
@@ -26,7 +27,7 @@ const ReportGenerationHistory = ({ user, onLogout }) => {
     if (!confirmDownload) return;
 
     try {
-      const response = await fetch(`http://192.168.0.115:5000/download_report/${encodeURIComponent(filename)}`, {
+      const response = await fetch(`${API_BASE_URL}/download_report/${encodeURIComponent(filename)}`, {
         method: "GET",
       });
 

@@ -18,11 +18,15 @@ def delete_report():
 
         # Find and delete the report from the database
         result = reports_collection.delete_one({"user_id": user_id, "filename": filename})
-
+        from database import log_recent_activity
         if result.deleted_count > 0:
+            log_recent_activity(user_id, filename, "Deleted", "Successful")
             return jsonify({"status": "success", "message": "Report deleted successfully"}), 200
         else:
+            log_recent_activity(user_id, filename, "Deleted", "Failed")
             return jsonify({"error": "Report not found"}), 404
     except Exception as e:
         print(f"Error deleting report: {e}")
+        from database import log_recent_activity
+        log_recent_activity(user_id, filename, "Deleted", "Failed")
         return jsonify({"error": "Failed to delete report"}), 500

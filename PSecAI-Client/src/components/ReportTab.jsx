@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ReportCard from './ReportCard';
 import axios from "axios"; 
 import '../styles/ReportTab.css';
+import API_BASE_URL from '../apiConfig';
 
 
 const ReportTab = ({ user }) => {
@@ -14,7 +15,7 @@ const ReportTab = ({ user }) => {
 
         const fetchReports = async () => {
             try {
-                const response = await axios.get(`http://192.168.0.115:5000/reports?user_id=${user.uid}`);
+                const response = await axios.get(`${API_BASE_URL}/reports?user_id=${user.uid}`);
                 setReports(response.data.reports || []);
             } catch (error) {
                 console.error("Error fetching reports:", error);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../styles/DocumentUploaded.css'; 
+import API_BASE_URL from '../apiConfig';
 
 function DocumentUploaded({user}) {
   const [reports, setReports] = useState([]);
@@ -10,7 +11,7 @@ function DocumentUploaded({user}) {
     // Fetch reports from backend API
   const fetchReports = async () => {
     try {
-      const response = await fetch(`http://192.168.0.115:5000/Dashboardupload?user_id=${user.uid}`);
+      const response = await fetch(`${API_BASE_URL}/Dashboardupload?user_id=${user.uid}`);
       const data = await response.json();
       setReports(data.reports);
     } catch (error) {
@@ -34,7 +35,7 @@ function DocumentUploaded({user}) {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://192.168.0.115:5000/Deleteupload?filename=${encodeURIComponent(filename)}&user_id=${user.uid}`, {
+      const response = await fetch(`${API_BASE_URL}/Deleteupload?filename=${encodeURIComponent(filename)}&user_id=${user.uid}`, {
         method: "DELETE",
       });
 

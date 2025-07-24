@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 from routes.upload_routes import upload_bp
 from routes.generate_routes import generate_bp
 from routes.get_reports_routes import get_reports_bp
@@ -10,15 +12,21 @@ from routes.ReportGenerationHistory import Generate_bp
 from routes.Downloads import Download_bp
 from routes.DashboardUpload import Dashboardupload_bp
 from routes.deleteDocument import Deleteupload_bp
-from routes.stripepayement import stripePayment_bp
-from routes.currentPlan import plan_bp
+from routes.paystackpayment import paystackPayment_bp
+from routes.paystackpayment import paystackPaymentkey_bp
+from routes.chat_sessions import chat_bp
 
 
 app = Flask(__name__)
 
-# Enable CORS globally with specific settings
-CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}}, supports_credentials=True)
+# Load environment variables from .env file
+load_dotenv()
 
+paystack_secret_key = os.getenv('PAYSTACK_SECRET_KEY')
+paystack_public_key = os.getenv('PAYSTACK_PUBLIC_KEY')
+
+# Enable CORS globally with specific settings
+CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "DELETE", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}}, supports_credentials=True)
 
 # Register blueprints with unique names
 app.register_blueprint(generate_bp, name='generate')
@@ -31,8 +39,10 @@ app.register_blueprint(Generate_bp, name='generate_history')
 app.register_blueprint(Download_bp, name='download_report')
 app.register_blueprint(Dashboardupload_bp, name='Dashboard_Upload_report')
 app.register_blueprint(Deleteupload_bp, name='Delete_Upload_report')
-app.register_blueprint(stripePayment_bp, url_prefix='/stripe')
-app.register_blueprint(plan_bp, name='current_plan')
+app.register_blueprint(paystackPayment_bp, url_prefix='/paystack')
+app.register_blueprint(paystackPaymentkey_bp, url_prefix='/paystack')
+app.register_blueprint(chat_bp, name='chat_sessions')
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
