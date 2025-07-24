@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaHome, FaFileAlt, FaCog, FaCreditCard, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "../styles/BillingPage.css";
+import API_BASE_URL from '../apiConfig';
 
 const BillingPage = ({ user, onLogout }) => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const BillingPage = ({ user, onLogout }) => {
     console.log("Sending payment initialization payload:", payload);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/paystack/initialize-payment", {
+      const response = await fetch(`${API_BASE_URL}/paystack/initialize-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

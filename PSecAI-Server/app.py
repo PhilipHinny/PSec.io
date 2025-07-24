@@ -19,8 +19,8 @@ from routes.chat_sessions import chat_bp
 
 app = Flask(__name__)
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from .env file at the project root
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 paystack_secret_key = os.getenv('PAYSTACK_SECRET_KEY')
 paystack_public_key = os.getenv('PAYSTACK_PUBLIC_KEY')
