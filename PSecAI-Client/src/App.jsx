@@ -14,6 +14,7 @@ import MyDocumentPage from './pages/MyDocumentPage';
 import Dashboard from './pages/Dashboard';
 import BillingPage from './pages/BillingPage';
 import AccountSettings from './pages/AccountSetting';
+import {Todo} from './pages/Todo'
 
 import './styles/App.css';
 
@@ -125,6 +126,7 @@ function AppContent({ user, setUser, showLogin, setShowLogin }) {
         <Route path="/activitypage" element={<ActivityPage user={user} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
         <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} handleClose={handleClose} />} />
         <Route path="/Policypage" element={<Policypage />} />
+        <Route path="/Todo" element={<Todo user={user} onLogout={handleLogout} />} />
         <Route path="/Dashboard" element={<Dashboard user={user} onLogout={handleLogout} />} />
         <Route path="/uploadPage" element={<UploadPage user={user} />} />
         <Route path="/MyDocumentPage" element={<MyDocumentPage user={user} onLogout={handleLogout} />} />

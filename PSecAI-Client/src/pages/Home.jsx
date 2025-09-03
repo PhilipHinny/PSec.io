@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
 import ReportTab from '../components/ReportTab';
-import MinuteTab from '../components/MinuteTab';
+import TodoTab from '../components/MinuteTab';
 import InsightTab from '../components/InsightTab';
 import GenerateButton from '../components/GenerateButton';
+
 
 const Home = ({ user }) => {
     const [userName, setUserName] = useState('Guest');
@@ -38,7 +39,7 @@ const Home = ({ user }) => {
             </div>
 
             <div className="card-container">
-                <MinuteTab />
+                <TodoTab />
                 <ReportTab user={user} />
                 <InsightTab />
             </div>

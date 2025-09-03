@@ -1,10 +1,11 @@
 import {useState, useEffect} from 'react';
-import MintuesCard from '../components/MinuteCard'
+import ToDoCard from './TodoCard';
 import axios from "axios"; 
 import '../styles/ReportTab.css';
 import API_BASE_URL from '../apiConfig';
+import { Navigate } from 'react-router-dom';
 
-const ReportTab = () => {
+const TodoTab = () => {
 
     const [reports, setReports] = useState([]);
 
@@ -25,21 +26,27 @@ const ReportTab = () => {
 
     return (
         <div className='Report-container'>
-            <p className='container-heading'> Minutes</p>
+            <p className='container-heading'> To Do</p>
             <div className="container-separater"></div>
+            <button 
+            className='card-content'
+            onClick={() => Navigate('/Todo')}
+            >
+                Add Task
+            </button>
             {reports.length > 0 ? (
                 reports.slice(0, 4).map((report, index) => (
-                    <MintuesCard 
-                        key={index} 
-                        title={report.title} 
-                        date={report.date} 
+                    <ToDoCard
+                        key={index}
+                        title={report.title}
+                        date={report.date}
                     />
                 ))
             ) : (
-                <p>No reports found</p>
+                <p>No Tasks found</p>
             )}
         </div>
     );
 };
 
-export default ReportTab;
+export default TodoTab;

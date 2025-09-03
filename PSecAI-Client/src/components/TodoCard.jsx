@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {FaFileAlt } from 'react-icons/fa';
 import '../styles/ReportCard.css';
 
-const MintuesCard = ({ title, date }) => {
+const ToDoCard = ({ title, date }) => {
 
     const navigate = useNavigate();
 
@@ -16,10 +16,10 @@ const MintuesCard = ({ title, date }) => {
                     <FaFileAlt className="card-icon" />
                     <div className="card-content">
                         <h2 className="card-heading">{title}</h2>
-                        <p className="card-subheading">Generated on {date}</p>
+                        <p className="card-subheading">To Do on {date}</p>
                     </div>
                 </div>
     );
 };
 
-export default MintuesCard;
+export default ToDoCard;
