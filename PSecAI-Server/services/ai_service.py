@@ -79,8 +79,6 @@ async def openrouter_chat(messages, model="mistral"):
 
 # ==== MOCK DB ====
 # def get_uploaded_report_texts(user_id):
-#     # Replace with your DB call
-#     return ["Previous Report Example 1", "Another Example"]
 
 def retrieve_similar_reports(user_id):
     # Replace with your vector DB call
