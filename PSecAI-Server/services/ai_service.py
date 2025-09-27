@@ -107,7 +107,7 @@ async def generate_report(user_id: str, prompt: str, file_type: str = "pdf"):
         ]
 
         model_names = [
-            "qwen/qwen3-coder:free"
+            "mistralai/mistral-small-3.2-24b-instruct:free"
         ]
 
         for model in model_names:
