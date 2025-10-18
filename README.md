@@ -7,6 +7,7 @@ PSec AI is an AI-powered tool designed to generate reports based on a user's pre
 [PSec AI Design](https://www.figma.com/design/XmqwYk5dCXE9R7ld42o1EK/PSec-AI?node-id=0-1&t=7sQHeB7RQ8tFhBnl-1)
 
 ## Features
+- **single paropes 
 - **Custom Report Generation**: Generates reports based on personal uploaded documents.
 - **Format Adaptation**: Learns from the structure and style of user-submitted reports.
 - **AI-Powered Learning**: Adapts to different writing styles and formatting preferences.
