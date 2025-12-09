@@ -1,31 +1,44 @@
-from flask import Blueprint, jsonify, request
-from database import get_db_connection
+from flask import Blueprint, request, jsonify
+from services.ai_service import generate_report
+import asyncio
+import json
 
-Dashboardupload_bp = Blueprint("report", __name__)
+generate_bp = Blueprint("generate", __name__)
 
-@Dashboardupload_bp.route("/Dashboardupload", methods=["GET"])
-def get_uploaded_reports():
-    """Fetch uploaded reports."""
+@generate_bp.route("/generate_report", methods=["POST"])
+def generate():
+    print("Received a request for report generation!")
 
-    user_id = request.args.get("user_id")
-    if not user_id:
-        return jsonify({"error": "User ID is required"}), 400
+    data = request.json
+    user_id = data.get("user_id")
+    prompt = data.get("prompt")
+    edit_prompt = data.get("edit_prompt")
+    follow_up_prompt = data.get("follow_up_prompt")
+
+    if not user_id or (not prompt and not edit_prompt and not follow_up_prompt):
+        return jsonify({"error": "Missing user_id and prompt or edit/follow-up prompt"}), 400
+
+    # Determine the final prompt
+    final_prompt = edit_prompt or follow_up_prompt or prompt
 
     try:
-        db = get_db_connection()
-        reports_collection = db["Uploaded_Reports"]
+        # Run the async function safely
+        if asyncio.get_event_loop().is_running():
+            # If already inside an event loop (like Flask dev server), use create_task
+            task = asyncio.create_task(generate_report(user_id, final_prompt))
+            generated_report = asyncio.get_event_loop().run_until_complete(task)
+        else:
+            generated_report = asyncio.run(generate_report(user_id, final_prompt))
 
-        reports = list(reports_collection.find({"user_id": user_id}, {"_id": 0, "filename": 1, "created_at": 1}))
+        # Check that the generated report is not empty
+        if not generated_report:
+            raise ValueError("AI service returned an empty response")
 
-        formatted_reports = [
-            {
-                "title": report["filename"],
-                "date": report["created_at"].strftime("%b %d, %Y"),
-            }
-            for report in reports
-        ]
+        return jsonify({"generated_report": generated_report})
 
-        return jsonify({"reports": formatted_reports}), 200
+    except json.JSONDecodeError as e:
+        print("JSON decoding error:", e)
+        return jsonify({"error": "Invalid response from AI service"}), 500
     except Exception as e:
-        print(f"Error fetching reports: {e}")
-        return jsonify({"error": "Failed to fetch reports"}), 500
+        print("Error generating report:", e)
+        return jsonify({"error": str(e)}), 500
