@@ -1,28 +1,105 @@
 # PSec AI
 
-## Overview
-PSec AI is an AI-powered tool designed to generate reports based on a user's previously written reports. Unlike predefined templates, PSec AI learns from user-uploaded documents to create reports in a similar format, ensuring consistency and personalization.
+## 📋 Table of Contents
 
-## Figma Design
-[PSec AI Design](https://www.figma.com/design/XmqwYk5dCXE9R7ld42o1EK/PSec-AI?node-id=0-1&t=7sQHeB7RQ8tFhBnl-1)
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Configuration](#configuration)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Usage Guide](#usage-guide)
+- [Development](#development)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Features
-- **Custom Report Generation**: Generates reports based on personal uploaded documents.
-- **Format Adaptation**: Learns from the structure and style of user-submitted reports.
-- **AI-Powered Learning**: Adapts to different writing styles and formatting preferences.
-- **Secure & Private**: Ensures user data is processed securely with no third-party access.
-- **User-Friendly Interface**: Simple and intuitive workflow for uploading reports and generating new ones.
+## 🎯 Overview
 
-## How It Works
-1. **Upload a Sample Report**: Users provide a previously written report to serve as a reference.
-2. **AI Analysis**: PSec AI analyzes the structure, tone, and format of the uploaded document.
-3. **Generate New Reports**: The AI produces new reports that follow the same format and writing style.
-4. **Review & Edit**: Users can review the generated report and make necessary modifications.
+PSec AI is an AI-powered web application designed to generate personalized reports based on a user's previously written reports. Unlike predefined templates, PSec AI learns from user-uploaded documents to create reports in a similar format, ensuring consistency and personalization. The system uses machine learning to analyze document structure, tone, and formatting patterns, then generates new reports that match the user's writing style.
 
-## Installation & Setup
-### Prerequisites
-- Python 3.x
-- Required libraries (listed in `requirements.txt`)
+## ✨ Features
+
+- **Custom Report Generation**: Generates reports based on personal uploaded documents
+- **Format Adaptation**: Learns from the structure and style of user-submitted reports
+- **AI-Powered Learning**: Adapts to different writing styles and formatting preferences using OpenRouter API
+- **Document Management**: Upload, view, and manage your documents in a centralized dashboard
+- **Report History**: Track all generated reports with full history and activity logs
+- **User Authentication**: Secure authentication using Firebase (Google OAuth, email/password)
+- **Payment Integration**: Paystack integration for subscription management
+- **Activity Tracking**: Real-time activity feed showing uploads, generations, and system events
+- **Report Statistics**: Dashboard with insights into report generation metrics
+- **Export Options**: Download reports in PDF or DOCX formats
+- **Todo Management**: Built-in task management system
+- **Responsive Design**: Modern, user-friendly interface that works on all devices
+
+## 🏗️ Architecture
+
+PSec AI follows a **client-server architecture**:
+
+### Frontend (PSecAI-Client)
+- **Framework**: React 19 with Vite
+- **Routing**: React Router DOM
+- **State Management**: React Hooks (useState, useEffect)
+- **Authentication**: Firebase Authentication
+- **Database**: Firebase Firestore (for user data)
+- **Storage**: Firebase Storage (for file uploads)
+- **UI Components**: Custom React components with CSS modules
+
+### Backend (PSecAI-Server)
+- **Framework**: Flask (Python)
+- **AI Service**: OpenRouter API (Mistral AI models)
+- **Database**: MongoDB (for report metadata, activities, user plans)
+- **File Processing**: PDF and DOCX extraction using pdfminer.six and python-docx
+- **API Architecture**: RESTful API with Flask blueprints
+- **CORS**: Configured for cross-origin requests
+
+### Data Flow
+1. User uploads a document → Frontend sends to backend → Backend extracts text → Stored in MongoDB
+2. User requests report generation → Frontend sends prompt → Backend queries MongoDB for user's previous reports → Sends context to OpenRouter API → Returns generated report → Saved to MongoDB
+3. User views dashboard → Frontend queries backend → Backend retrieves data from MongoDB → Returns to frontend
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React** 19.0.0
+- **Vite** 6.2.2
+- **React Router DOM** 7.2.0
+- **Firebase** 11.3.1 (Authentication, Firestore, Storage)
+- **Axios** 1.8.4
+- **React Markdown** 10.1.0
+- **Stripe** (for payment processing)
+- **Lucide React** (icons)
+- **React Dropzone** (file uploads)
+- **html2pdf.js** & **jsPDF** (PDF generation)
+- **docx** (Word document generation)
+
+### Backend
+- **Python** 3.11.8
+- **Flask** (web framework)
+- **Flask-CORS** (CORS handling)
+- **MongoDB** (via pymongo)
+- **OpenRouter API** (AI model integration)
+- **pdfminer.six** (PDF text extraction)
+- **python-docx** (DOCX processing)
+- **FPDF** (PDF generation)
+- **httpx** (async HTTP client)
+- **python-dotenv** (environment variables)
+- **gunicorn** (production WSGI server)
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18 or higher) and **npm**
+- **Python** 3.11.8 or higher
+- **MongoDB** (local or MongoDB Atlas account)
+- **Firebase** account (for authentication and storage)
+- **OpenRouter API** account (for AI services)
+- **Paystack** account (for payments, optional)
 
 ## 🚀 Installation & Setup
 
