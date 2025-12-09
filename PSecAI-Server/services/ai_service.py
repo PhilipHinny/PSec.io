@@ -56,7 +56,7 @@ Users will provide:
 
 # === HELPERS ===
 
-async def openrouter_chat(messages, model="mistral"):
+async def openrouter_chat(messages, model="openai"):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Referer": REFERER,
