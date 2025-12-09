@@ -15,7 +15,7 @@ app = FastAPI()
 # ==== CONFIG ====
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 REFERER = os.getenv("REFERER", "http://localhost:5173")
-OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_API_URL = "https://openrouter.ai/openai/gpt-oss-120b:free"
 
 DOWNLOAD_FOLDER = "downloads"
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
