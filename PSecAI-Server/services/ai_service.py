@@ -9,10 +9,6 @@ import httpx
 from database import get_uploaded_report_texts, log_recent_activity
 from db.vector_db import save_generated_report  # Add this import
 
-# Your database imports (stub for example)
-# Replace with your actual DB hooks
-# from db.vector_db import save_generated_report, retrieve_similar_reports
-# from database import log_recent_activity, get_uploaded_report_texts
 
 app = FastAPI()
 
@@ -81,7 +77,6 @@ async def openrouter_chat(messages, model="mistral"):
 # def get_uploaded_report_texts(user_id):
 
 def retrieve_similar_reports(user_id):
-    # Replace with your vector DB call
     return ["Generated Report Example"]
 
 def log_recent_activity(user_id, title, category, status):
@@ -107,7 +102,7 @@ async def generate_report(user_id: str, prompt: str, file_type: str = "pdf"):
         ]
 
         model_names = [
-            "mistralai/mistral-small-3.2-24b-instruct:free"
+            "openai/gpt-oss-120b:free"
         ]
 
         for model in model_names:

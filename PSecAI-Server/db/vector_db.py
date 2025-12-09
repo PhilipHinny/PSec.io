@@ -19,8 +19,8 @@ def save_generated_report(user_id, report_text, filename):
     try:
         report_data = {
             "user_id": user_id,
-            "report_text": report_text,  # Store the actual report text
-            "filename": filename,  # Store the filename separately
+            "report_text": report_text,  # store the report text
+            "filename": filename,  # store the filename separately
             "created_at": datetime.datetime.utcnow()
         }
 
