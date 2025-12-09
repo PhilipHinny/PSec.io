@@ -15,7 +15,7 @@ app = FastAPI()
 # ==== CONFIG ====
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 REFERER = os.getenv("REFERER", "http://localhost:5173")
-OPENROUTER_API_URL = "https://openrouter.ai/openai/gpt-oss-120b:free"
+OPENROUTER_API_URL = "https://openrouter.ai/amazon/nova-2-lite-v1:free/providers"
 
 DOWNLOAD_FOLDER = "downloads"
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
@@ -56,7 +56,7 @@ Users will provide:
 
 # === HELPERS ===
 
-async def openrouter_chat(messages, model="openai"):
+async def openrouter_chat(messages, model="amazon/nova-2-lite-v1:free"):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Referer": REFERER,
@@ -102,7 +102,7 @@ async def generate_report(user_id: str, prompt: str, file_type: str = "pdf"):
         ]
 
         model_names = [
-            "openai/gpt-oss-120b:free"
+            "amazon/nova-2-lite-v1:free",
         ]
 
         for model in model_names:
