@@ -7,7 +7,7 @@ from docx import Document
 from fpdf import FPDF
 import httpx
 from database import get_uploaded_report_texts, log_recent_activity
-from db.vector_db import save_generated_report  # Add this import
+from db.vector_db import save_generated_report  
 
 
 app = FastAPI()
