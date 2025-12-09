@@ -5,18 +5,20 @@ report_bp = Blueprint("report", __name__)
 
 @report_bp.route("/reports", methods=["GET"])
 def get_reports():
-    """Fetch uploaded reports for a specific user."""
+    """Fetch uploaded reports for a specific user or all reports if user_id is not provided."""
     try:
         user_id = request.args.get("user_id")
-        if not user_id:
-            return jsonify({"error": "Missing user_id"}), 400
-
+        
         db = get_db_connection()
         reports_collection = db["Generated_Reports"]
 
-        # Only fetch reports that belong to the given user_id
+        # Build query: filter by user_id if provided, else fetch all reports
+        query = {}
+        if user_id:
+            query["user_id"] = user_id
+
         reports = list(reports_collection.find(
-            {"user_id": user_id},
+            query,
             {"_id": 0, "filename": 1, "created_at": 1, "report_text": 1}
         ))
 
