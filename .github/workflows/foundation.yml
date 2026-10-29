@@ -1,0 +1,60 @@
+name: foundation
+on: [push, pull_request]
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_DB: psec_ci
+          POSTGRES_USER: psec_ci
+          POSTGRES_PASSWORD: synthetic_ci_only
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U psec_ci -d psec_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7.4-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      APP_ENV: test
+      DATABASE_URL: postgresql+psycopg://psec_ci:synthetic_ci_only@localhost:5432/psec_ci
+      REDIS_URL: redis://localhost:6379/0
+      SUPABASE_URL: http://localhost:54321
+      SUPABASE_SERVICE_ROLE_KEY: synthetic_ci_only
+      FIREBASE_PROJECT_ID: synthetic_ci
+      FIREBASE_CREDENTIALS: synthetic_ci_only
+      WEB_ORIGIN: http://localhost:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run ruff check apps tests
+      - run: uv run mypy apps tests
+      - run: uv run pytest
+      - run: uv run alembic upgrade head
+      - run: uv run alembic upgrade head
+      - run: uv run pytest tests/test_schema.py tests/test_identity.py
+        env:
+          PSEC_SCHEMA_TEST: '1'
+      - run: uv run alembic current
+      - run: uv run alembic downgrade base
+      - run: uv run alembic upgrade head
+      - uses: actions/setup-node@v4
+        with: {node-version: '22', cache: npm, cache-dependency-path: apps/web/package-lock.json}
+      - run: npm ci --no-audit --no-fund
+        working-directory: apps/web
+      - run: npm run lint && npm run typecheck && npm run test && npm run build
+        working-directory: apps/web
+      - name: Reject server keys in web output
+        run: |
+          if grep -R -E 'SUPABASE_SERVICE_ROLE_KEY|FIREBASE_CREDENTIALS|PAYSTACK_SECRET_KEY|OPENROUTER_API_KEY' apps/web/dist; then exit 1; fi
+      - name: Reject tracked environment files
+        run: |
+          if git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$'; then exit 1; fi

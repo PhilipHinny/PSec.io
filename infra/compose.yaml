@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: psec_local
+      POSTGRES_USER: psec_local
+      POSTGRES_PASSWORD: local_only_change_me
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U psec_local -d psec_local"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - "127.0.0.1:56379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+volumes:
+  postgres_data:

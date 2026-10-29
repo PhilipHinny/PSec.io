@@ -1,0 +1,20 @@
+project_id = "psec-local"
+
+[api]
+port = 55421
+
+[db]
+port = 55422
+shadow_port = 55420
+
+[studio]
+port = 55423
+
+[inbucket]
+port = 55424
+smtp_port = 55425
+pop3_port = 55426
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
